@@ -4,10 +4,10 @@
  * Wire formats (all little-endian):
  *   Request : [cmd:1][payload_len:1][payload:payload_len]
  *   Response: [cmd:1][status:1][payload_len:1][payload:payload_len]
- *   ScanPush: [CMD_SCAN_DATA:1][n_samples:1][status:1][768-byte ADC data]
+ *   ScanPush: [CMD_SCAN_DATA:1][n_samples:1][status:1][n_samples * 4ch * 3B ADC data]
  */
 #include "protocol.h"
-#include "../include/prismc.h"
+#include "../include/prismlib.h"
 
 #include <string.h>
 

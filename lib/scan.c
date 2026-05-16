@@ -1,21 +1,24 @@
 /*
  * scan.c — Background scan thread and ring buffer for PRISM-CLib
  *
- * The device pushes 771-byte frames continuously:
- *   [CMD_SCAN_DATA:1][n_samples=64:1][status:1][768-byte ADC data]
- * ADC data layout: [s0_ch0 3B][s0_ch1 3B][s0_ch2 3B][s0_ch3 3B] × 64 (LE int24)
+ * The device pushes scan frames via UDP (port 7778):
+ *   [cnt_lo:1][cnt_hi:1][CMD_SCAN_DATA:1][n_lo:1][n_hi:1][status:1][n_samples * 4ch * 3B int24-LE]
  *
- * Thread reads frames, converts to physical doubles, and writes to the ring
- * buffer. Exits when the SCAN_STOPPED flag is set in a received frame.
+ * TCP is used only for control commands (CMD_SCAN_START / CMD_SCAN_STOP).
+ * Thread exits when SRV_SCAN_STOPPED flag is set or thread_exit is signalled.
  */
 #include "scan.h"
 #include "transport.h"
 #include "protocol.h"
-#include "../include/prismc.h"
+#include "../include/prismlib.h"
 
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <sys/select.h>
+
+#define UDP_DATA_PORT   7778u
+#define UDP_RECV_TMO_MS  200   /* periodic wakeup to check thread_exit */
 
 /* ── Conversion ─────────────────────────────────────────────────────────── */
 
@@ -48,24 +51,124 @@ static void ring_push(ScanCtx_t *ctx, const double *sample_set)
     ctx->head = (ctx->head + 1) % ctx->buf_cap;
 }
 
-/* ── Scan thread ─────────────────────────────────────────────────────────── */
+/* ── Scan thread (TCP) ───────────────────────────────────────────────────── */
+
+/* TCP scan frame: [CMD:1][n_lo:1][n_hi:1][status:1][n_samples * 4ch * 3B] */
+#define TCP_RECV_TMO_MS  200   /* periodic wakeup to check thread_exit */
+
+static void *scan_thread_tcp(void *arg)
+{
+    ScanCtx_t *ctx = (ScanCtx_t *)arg;
+    uint8_t    payload[SCAN_PAYLOAD_MAX];
+    double     sample_set[SCAN_N_CH];
+
+    while (!ctx->thread_exit) {
+        fd_set rfd;
+        FD_ZERO(&rfd);
+        FD_SET(ctx->sockfd, &rfd);
+        struct timeval tv = { .tv_sec = 0, .tv_usec = TCP_RECV_TMO_MS * 1000 };
+        int sel = select(ctx->sockfd + 1, &rfd, NULL, NULL, &tv);
+        if (sel < 0)
+            break;
+        if (sel == 0)
+            continue;   /* timeout — re-check thread_exit */
+
+        /* Read CMD byte */
+        uint8_t cmd;
+        if (tcp_recv_all(ctx->sockfd, &cmd, 1, 3000) != 0)
+            break;
+
+        if (cmd == CMD_SCAN_STOP) {
+            /* Consume remaining 2 bytes of the stop response, then exit. */
+            uint8_t rest[2];
+            tcp_recv_all(ctx->sockfd, rest, 2, 3000);
+            break;
+        }
+
+        if (cmd != CMD_SCAN_DATA)
+            break;  /* unexpected command — can't recover stream position */
+
+        /* Read [n_lo n_hi status] */
+        uint8_t hdr[3];
+        if (tcp_recv_all(ctx->sockfd, hdr, 3, 3000) != 0)
+            break;
+        uint16_t n_samples  = (uint16_t)hdr[0] | ((uint16_t)hdr[1] << 8);
+        uint8_t  srv_status = hdr[2];
+
+        uint32_t payload_len = (uint32_t)n_samples * SCAN_N_CH * SCAN_BYTES_PER_S;
+        if (payload_len == 0 || payload_len > SCAN_PAYLOAD_MAX)
+            break;
+
+        if (tcp_recv_all(ctx->sockfd, payload, payload_len, 5000) != 0)
+            break;
+
+        if (srv_status & SRV_HW_OVERRUN) {
+            pthread_mutex_lock(&ctx->mtx);
+            ctx->status |= STATUS_HW_OVERRUN;
+            pthread_mutex_unlock(&ctx->mtx);
+        }
+
+        pthread_mutex_lock(&ctx->mtx);
+        const uint8_t *p = payload;
+        for (uint32_t s = 0; s < n_samples; s++) {
+            int out_ch = 0;
+            for (int ch = 0; ch < (int)SCAN_N_CH; ch++) {
+                int32_t raw = proto_int24_to_int32(p);
+                p += SCAN_BYTES_PER_S;
+                if (!(ctx->ch_mask & (uint8_t)(1u << ch)))
+                    continue;
+                sample_set[out_ch++] = convert_sample(raw,
+                    ctx->cal_slope[ch], ctx->cal_offset[ch],
+                    ctx->sensitivity[ch], ctx->options);
+            }
+            ring_push(ctx, sample_set);
+        }
+        pthread_cond_broadcast(&ctx->cond);
+        pthread_mutex_unlock(&ctx->mtx);
+
+        if (srv_status & SRV_SCAN_STOPPED)
+            break;
+    }
+
+    pthread_mutex_lock(&ctx->mtx);
+    ctx->status &= (uint16_t)~STATUS_RUNNING;
+    pthread_cond_broadcast(&ctx->cond);
+    pthread_mutex_unlock(&ctx->mtx);
+    return NULL;
+}
+
+/* ── Scan thread (UDP) ───────────────────────────────────────────────────── */
+
+/* UDP datagram buffer: 2-byte counter + 4-byte scan header + max payload */
+#define UDP_DGRAM_MAX  (2u + SCAN_HEADER_SIZE + SCAN_PAYLOAD_MAX)
 
 static void *scan_thread(void *arg)
 {
     ScanCtx_t *ctx = (ScanCtx_t *)arg;
-    uint8_t frame[SCAN_FRAME_SIZE];
+    uint8_t dgram[UDP_DGRAM_MAX];
     double  sample_set[SCAN_N_CH];
 
-    while (1) {
-        /* Receive one full 771-byte frame */
-        if (tcp_recv_all(ctx->sockfd, frame, SCAN_FRAME_SIZE, 5000) != 0)
+    while (!ctx->thread_exit) {
+        int n = udp_recv_frame(ctx->udp_fd, dgram, sizeof(dgram), UDP_RECV_TMO_MS);
+        if (n < 0)
             break;
+        if (n == 0)
+            continue;   /* timeout — re-check thread_exit */
 
-        if (!proto_is_scan_frame(frame))
-            break;
+        /* UDP frame: [cnt:2][CMD_SCAN_DATA:1][n_lo:1][n_hi:1][status:1][data...] */
+        if ((size_t)n < 2u + SCAN_HEADER_SIZE)
+            continue;
 
-        uint8_t        srv_status = proto_scan_frame_status(frame);
-        const uint8_t *payload    = proto_scan_frame_payload(frame);
+        const uint8_t *hdr = dgram + 2;   /* skip 2-byte counter */
+        if (!proto_is_scan_frame(hdr))
+            continue;
+
+        uint16_t n_samples   = (uint16_t)hdr[1] | ((uint16_t)hdr[2] << 8);
+        uint8_t  srv_status  = hdr[3];
+        uint32_t payload_len = (uint32_t)n_samples * SCAN_N_CH * SCAN_BYTES_PER_S;
+
+        if (payload_len == 0 || (size_t)n < 2u + SCAN_HEADER_SIZE + payload_len)
+            continue;
 
         if (srv_status & SRV_HW_OVERRUN) {
             pthread_mutex_lock(&ctx->mtx);
@@ -75,12 +178,15 @@ static void *scan_thread(void *arg)
 
         /* Convert each sample-set and push to ring buffer */
         pthread_mutex_lock(&ctx->mtx);
-        const uint8_t *p = payload;
-        for (uint32_t s = 0; s < SCAN_N_SAMPLES; s++) {
-            for (int ch = 0; ch < ctx->ch_count; ch++) {
+        const uint8_t *p = dgram + 2u + SCAN_HEADER_SIZE;
+        for (uint32_t s = 0; s < n_samples; s++) {
+            int out_ch = 0;
+            for (int ch = 0; ch < (int)SCAN_N_CH; ch++) {
                 int32_t raw = proto_int24_to_int32(p);
                 p += SCAN_BYTES_PER_S;
-                sample_set[ch] = convert_sample(raw,
+                if (!(ctx->ch_mask & (uint8_t)(1u << ch)))
+                    continue;
+                sample_set[out_ch++] = convert_sample(raw,
                     ctx->cal_slope[ch], ctx->cal_offset[ch],
                     ctx->sensitivity[ch], ctx->options);
             }
@@ -105,6 +211,7 @@ static void *scan_thread(void *arg)
 void scan_ctx_init(ScanCtx_t *ctx)
 {
     memset(ctx, 0, sizeof(*ctx));
+    ctx->udp_fd = -1;
     pthread_mutex_init(&ctx->mtx, NULL);
     pthread_cond_init(&ctx->cond, NULL);
 }
@@ -142,7 +249,26 @@ int scan_start(ScanCtx_t *ctx, int sockfd,
     if (!ctx->ring)
         return RESULT_RESOURCE_UNAVAIL;
 
-    if (pthread_create(&ctx->tid, NULL, scan_thread, ctx) != 0) {
+    void *(*thread_fn)(void *);
+    if (options & OPTS_TCP_DATA) {
+        /* TCP data mode: scan frames arrive on the control socket; no UDP. */
+        thread_fn = scan_thread_tcp;
+    } else {
+        ctx->udp_fd = udp_open_recv((uint16_t)UDP_DATA_PORT);
+        if (ctx->udp_fd < 0) {
+            free(ctx->ring);
+            ctx->ring = NULL;
+            return RESULT_RESOURCE_UNAVAIL;
+        }
+        thread_fn = scan_thread;
+    }
+
+    ctx->thread_exit = 0;
+    if (pthread_create(&ctx->tid, NULL, thread_fn, ctx) != 0) {
+        if (ctx->udp_fd >= 0) {
+            tcp_close(ctx->udp_fd);
+            ctx->udp_fd = -1;
+        }
         free(ctx->ring);
         ctx->ring = NULL;
         return RESULT_UNDEFINED;
@@ -154,9 +280,21 @@ int scan_stop_send(ScanCtx_t *ctx)
 {
     uint8_t req[2];
     int len = proto_build_req((uint8_t)CMD_SCAN_STOP, NULL, 0, req);
-    /* Server sends no response; scan thread will see STOPPED frame */
     if (tcp_send_all(ctx->sockfd, req, (size_t)len) != 0)
         return RESULT_COMMS_FAILURE;
+
+    if (ctx->options & OPTS_TCP_DATA) {
+        /* TCP data mode: scan_thread_tcp drains the CMD_SCAN_STOP response
+         * from the socket and exits on its own.  thread_exit is a safety net
+         * in case the server becomes unresponsive. */
+    } else {
+        /* UDP data mode: consume the CMD_SCAN_STOP TCP response (3 bytes) so
+         * it does not interfere with subsequent do_cmd() calls. */
+        uint8_t hdr[3];
+        tcp_recv_all(ctx->sockfd, hdr, sizeof(hdr), 3000);
+    }
+
+    ctx->thread_exit = 1;
     return RESULT_SUCCESS;
 }
 
@@ -171,6 +309,10 @@ int scan_join(ScanCtx_t *ctx)
 
 void scan_cleanup(ScanCtx_t *ctx)
 {
+    if (ctx->udp_fd >= 0) {
+        tcp_close(ctx->udp_fd);
+        ctx->udp_fd = -1;
+    }
     free(ctx->ring);
     ctx->ring   = NULL;
     ctx->active = 0;

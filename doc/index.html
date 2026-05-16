@@ -1,0 +1,5160 @@
+﻿
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PRISM 라이브러리 API 레퍼런스">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>PRISM API Reference - PRISM API Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prism-api-reference" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="PRISM API Reference" class="md-header__button md-logo" aria-label="PRISM API Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PRISM API Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PRISM API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PRISM API Reference" class="md-nav__button md-logo" aria-label="PRISM API Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PRISM API Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#코드-위치" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        코드 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#목차" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        목차
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-개요" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 개요
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-하드웨어-사양" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 하드웨어 사양
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 하드웨어 사양">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#커넥터-및-인터페이스" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        커넥터 및 인터페이스
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-상태-led-핀-배치-cm4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 상태 LED 핀 배치 (CM4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-설치-및-시작하기" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 설치 및 시작하기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 설치 및 시작하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-연결-prism-c100-전용" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 연결 (PRISM C100 전용)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-설치" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 설치
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 설치">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#요구사항" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        요구사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#다운로드" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다운로드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#설치" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설치
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#설치-확인" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설치 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpio13-usb-전원-제어" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPIO13 USB 전원 제어
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#제거" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        제거
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-c-예제-실행" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 C 예제 실행
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 C 예제 실행">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#사용자-코드-컴파일" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사용자 코드 컴파일
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-python-예제-실행" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Python 예제 실행
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Python 예제 실행">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#기본-사용-예시" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기본 사용 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#다중-장치-동시-제어" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        다중 장치 동시 제어
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-공통-상수-및-열거형" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 공통 상수 및 열거형
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 공통 상수 및 열거형">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-resultcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 ResultCode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-scan-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Scan Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Scan Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#데이터-전송-모드-udp-vs-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        데이터 전송 모드: UDP vs TCP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-scan-status-플래그" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Scan Status 플래그
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Scan Status 플래그">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status_hw_overrun-0x0001--장치측-adc-오버런" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STATUS_HW_OVERRUN (0x0001) — 장치측 ADC 오버런
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status_buffer_overrun-0x0002--호스트측-링-버퍼-오버런" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STATUS_BUFFER_OVERRUN (0x0002) — 호스트측 링 버퍼 오버런
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-장치-연결-상태" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 장치 연결 상태
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-samplerate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 SampleRate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-ledid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 LedId
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-c-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. C API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. C API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-함수-목록" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 함수 목록
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-디바이스-관리" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 디바이스 관리
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 디바이스 관리">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_open()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_is_open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_is_open()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_close()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_info()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_fw_version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_fw_version()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_serial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_serial()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_error_msg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_error_msg()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-캘리브레이션" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 캘리브레이션
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 캘리브레이션">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_cal_date" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_cal_date()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_cal_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_cal_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_cal_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_cal_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-iepe-설정" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 IEPE 설정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 IEPE 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_iepe_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_iepe_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_iepe_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_iepe_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_iepe_diag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_iepe_diag()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-센서-감도" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 센서 감도
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 센서 감도">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_sens_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_sens_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_sens_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_sens_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-샘플링-속도-설정" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 샘플링 속도 설정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6 샘플링 속도 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_samplerate_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_sampleRate_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_samplerate_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_sampleRate_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-아날로그-입력-스캔" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 아날로그 입력 스캔
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.7 아날로그 입력 스캔">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#채널-마스크" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        채널 마스크
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#스캔-상태-용어" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        스캔 상태 용어
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_scan_start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_scan_start()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_scan_stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_scan_stop()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_scan_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_scan_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_scan_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_scan_status()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_scan_cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_scan_cleanup()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_scan_ch_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_scan_ch_count()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_scan_buf_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_scan_buf_size()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-led-제어" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 LED 제어
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.8 LED 제어">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_led_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_led_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_run_led_kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_run_led_kernel()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlib_run_led_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib_run_led_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#led-사용-예제" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LED 사용 예제
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Python API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Python API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-메서드-목록" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 메서드 목록
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-디바이스-관리" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 디바이스 관리
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 디바이스 관리">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlib__init__--prismlibopen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.__init__() / prismlib.open()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibis_open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.is_open()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.close()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.info()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibfw_version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.fw_version()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibserial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.serial()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-캘리브레이션" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 캘리브레이션
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 캘리브레이션">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlibcal_date" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.cal_date()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibcal_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.cal_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibcal_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.cal_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-iepe-설정" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 IEPE 설정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4 IEPE 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlibiepe_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.iepe_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibiepe_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.iepe_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibiepe_diag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.iepe_diag()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-센서-감도" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 센서 감도
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5 센서 감도">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlibsens_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.sens_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibsens_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.sens_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-샘플링-속도-설정" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 샘플링 속도 설정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6 샘플링 속도 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlibsamplerate_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.sampleRate_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibsamplerate_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.sampleRate_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67-아날로그-입력-스캔" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7 아날로그 입력 스캔
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.7 아날로그 입력 스캔">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlibscan_start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.scan_start()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibscan_stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.scan_stop()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibscan_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.scan_read()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibscan_read_numpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.scan_read_numpy()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibscan_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.scan_status()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibscan_cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.scan_cleanup()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibscan_ch_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.scan_ch_count()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibscan_buf_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.scan_buf_size()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68-led-제어" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8 LED 제어
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.8 LED 제어">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prismlibled_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.led_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibrun_led_kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.run_led_kernel()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prismlibrun_led_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prismlib.run_led_write()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#led-사용-예제_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LED 사용 예제
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-사용-예제" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 사용 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 사용 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-기본-유한-스캔-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 기본 유한 스캔 (C)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-연속-스캔-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 연속 스캔 (C)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-기본-유한-스캔-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 기본 유한 스캔 (Python)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-연속-스캔-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 연속 스캔 (Python)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-api-빠른-참조-표" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. API 빠른 참조 표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-변경-이력" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 변경 이력
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="prism-api-reference">PRISM API Reference<a class="headerlink" href="#prism-api-reference" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>PRISM</strong> — Precision Real-Time Instrumentation System for Monitoring</p>
+</blockquote>
+<hr />
+<h2 id="코드-위치">코드 위치<a class="headerlink" href="#코드-위치" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prismlib/include/prismlib.h</code></td>
+<td>C API 공개 헤더 — 전체 함수/상수 선언</td>
+</tr>
+<tr>
+<td><code>prismlib/python/prismlib/prismlib_c.py</code></td>
+<td>Python API 공개 클래스 — ctypes 래퍼</td>
+</tr>
+<tr>
+<td><code>prismlib/python/prismlib/constants.py</code></td>
+<td>Python 공통 상수 — ResultCode, ScanOptions, ScanStatus</td>
+</tr>
+<tr>
+<td><code>prismlib/examples/c/finite_scan.c</code></td>
+<td>C 유한 스캔 예제</td>
+</tr>
+<tr>
+<td><code>prismlib/examples/c/continuous_scan.c</code></td>
+<td>C 연속 스캔 예제</td>
+</tr>
+<tr>
+<td><code>prismlib/examples/python/finite_scan.py</code></td>
+<td>Python 유한 스캔 예제</td>
+</tr>
+<tr>
+<td><code>prismlib/examples/python/continuous_scan.py</code></td>
+<td>Python 연속 스캔 예제</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="목차">목차<a class="headerlink" href="#목차" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#1-개요">개요</a></li>
+<li><a href="#2-하드웨어-사양">하드웨어 사양</a></li>
+<li><a href="#3-설치-및-시작하기">설치 및 시작하기</a><ul>
+<li><a href="#31-연결-prism-c100-전용">연결 (PRISM C100 전용)</a></li>
+<li><a href="#32-설치">설치</a></li>
+<li><a href="#33-c-예제-실행">C 예제 실행</a></li>
+<li><a href="#34-python-예제-실행">Python 예제 실행</a></li>
+</ul>
+</li>
+<li><a href="#4-공통-상수-및-열거형">공통 상수 및 열거형</a><ul>
+<li><a href="#41-resultcode">ResultCode</a></li>
+<li><a href="#42-scan-options">Scan Options</a></li>
+<li><a href="#43-scan-status-플래그">Scan Status 플래그</a></li>
+<li><a href="#44-장치-연결-상태">장치 연결 상태</a></li>
+<li><a href="#45-samplerate">SampleRate</a></li>
+<li><a href="#46-ledid">LedId</a></li>
+</ul>
+</li>
+<li><a href="#5-c-api">C API</a><ul>
+<li><a href="#51-함수-목록">함수 목록</a></li>
+<li><a href="#52-디바이스-관리">디바이스 관리</a></li>
+<li><a href="#53-캘리브레이션">캘리브레이션</a></li>
+<li><a href="#54-iepe-설정">IEPE 설정</a></li>
+<li><a href="#55-센서-감도">센서 감도</a></li>
+<li><a href="#56-샘플링-속도-설정">샘플링 속도 설정</a></li>
+<li><a href="#57-아날로그-입력-스캔">아날로그 입력 스캔</a></li>
+<li><a href="#58-led-제어">LED 제어</a></li>
+</ul>
+</li>
+<li><a href="#6-python-api">Python API</a><ul>
+<li><a href="#61-메서드-목록">메서드 목록</a></li>
+<li><a href="#62-디바이스-관리">디바이스 관리</a></li>
+<li><a href="#63-캘리브레이션">캘리브레이션</a></li>
+<li><a href="#64-iepe-설정">IEPE 설정</a></li>
+<li><a href="#65-센서-감도">센서 감도</a></li>
+<li><a href="#66-샘플링-속도-설정">샘플링 속도 설정</a></li>
+<li><a href="#67-아날로그-입력-스캔">아날로그 입력 스캔</a></li>
+<li><a href="#68-led-제어">LED 제어</a></li>
+</ul>
+</li>
+<li><a href="#7-사용-예제">사용 예제</a><ul>
+<li><a href="#71-기본-유한-스캔-c">기본 유한 스캔 (C)</a></li>
+<li><a href="#72-연속-스캔-c">연속 스캔 (C)</a></li>
+<li><a href="#73-기본-유한-스캔-python">기본 유한 스캔 (Python)</a></li>
+<li><a href="#74-연속-스캔-python">연속 스캔 (Python)</a></li>
+</ul>
+</li>
+<li><a href="#8-api-빠른-참조-표">API 빠른 참조 표</a></li>
+<li><a href="#9-변경-이력">변경 이력</a></li>
+</ol>
+<hr />
+<h2 id="1-개요">1. 개요<a class="headerlink" href="#1-개요" title="Permanent link">&para;</a></h2>
+<p>PRISM은 USB 또는 이더넷으로 연결하여 사용하는 고정밀 진동·소음 측정 모듈입니다.
+라이브러리는 C와 Python 두 가지로 제공되며, 동일한 기능을 제공합니다.</p>
+<table>
+<thead>
+<tr>
+<th>언어</th>
+<th>헤더/패키지</th>
+<th>API 스타일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C (GCC)</td>
+<td><code>#include "prismlib.h"</code></td>
+<td><code>prismlib_t*</code> 핸들 기반 함수</td>
+</tr>
+<tr>
+<td>Python 3</td>
+<td><code>from prismlib import prismlib</code></td>
+<td><code>prismlib()</code> 클래스 메서드</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>다중 장치 지원</strong>: C API는 <code>prismlib_t*</code> 핸들을 통해 여러 PRISM 장치를 동시에 제어할 수 있습니다.
+Python API는 <code>prismlib</code> 인스턴스 생성으로 동일하게 지원합니다.</p>
+</blockquote>
+<p><strong>연결</strong>: PRISM 장치를 USB 또는 이더넷 케이블로 연결한 후 <code>open()</code>을 호출하면 통신이 시작됩니다.</p>
+<hr />
+<h2 id="2-하드웨어-사양">2. 하드웨어 사양<a class="headerlink" href="#2-하드웨어-사양" title="Permanent link">&para;</a></h2>
+<p><img alt="PRISM-C100" src="assets/images/PRISM-C100.png" width="600" /></p>
+<p>PRISM-C100은 4채널 24-bit ADC 기반 진동·음향 측정 모듈로, IEPE 전류원을 내장하여 압전형 가속도계/마이크를 직접 연결할 수 있습니다. Ethernet 인터페이스를 통해 최대 512 kSPS의 고속 데이터를 스트리밍합니다.</p>
+<h3 id="커넥터-및-인터페이스">커넥터 및 인터페이스<a class="headerlink" href="#커넥터-및-인터페이스" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>레이블</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CH1 ~ CH4</td>
+<td>BNC</td>
+<td>아날로그 입력 채널. IEPE 전류원 내장 (채널별 On/Off). 입력 범위 ±5 V, 24-bit ADC.</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>4핀 단자대</td>
+<td>24 V DC 전원 입력. 핀 배열: 24V · GND · PG(Protective Ground) · PG.</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>USB-A × 2</td>
+<td>호스트 USB 포트.</td>
+</tr>
+<tr>
+<td>WAN</td>
+<td>RJ-45</td>
+<td>외부 네트워크 연결 포트. PC 또는 스위치/라우터에 연결.</td>
+</tr>
+<tr>
+<td>LAN</td>
+<td>RJ-45</td>
+<td>내부 네트워크 포트 (192.168.0.10 초기 고정 IP 설정)</td>
+</tr>
+<tr>
+<td>SD</td>
+<td>MicroSD</td>
+<td>시스템 OS 및 로그 저장용 MicroSD 슬롯.</td>
+</tr>
+<tr>
+<td>RUN / PWR / ALM / ERR</td>
+<td>LED × 4</td>
+<td>장치 상태 표시 LED (→ 2.1 참조).</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-c">struct PrismlibDeviceInfo {
+    uint8_t NUM_AI_CHANNELS;  // 아날로그 입력 채널 수 = 4
+    int32_t AI_MIN_CODE;      // ADC 최솟값 = -8,388,608
+    int32_t AI_MAX_CODE;      // ADC 최댓값 =  8,388,607
+    double  AI_MIN_VOLTAGE;   // 최소 입력 전압 = -5.0 V
+    double  AI_MAX_VOLTAGE;   // 최대 입력 전압 = +5.0 V - 1 LSB
+    double  AI_MIN_RANGE;     // 입력 범위 최솟값 = -5.0 V
+    double  AI_MAX_RANGE;     // 입력 범위 최댓값 = +5.0 V
+};
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>채널 수</td>
+<td>4 (ch1 ~ ch4)</td>
+</tr>
+<tr>
+<td>ADC 해상도</td>
+<td>24-bit</td>
+</tr>
+<tr>
+<td>입력 전압 범위</td>
+<td>±5 V</td>
+</tr>
+<tr>
+<td>기본 샘플링 속도</td>
+<td>64 kSPS (채널당)</td>
+</tr>
+<tr>
+<td>최대 샘플링 속도</td>
+<td>512 kSPS (채널당)</td>
+</tr>
+<tr>
+<td>IEPE 지원</td>
+<td>있음 (채널별 On/Off)</td>
+</tr>
+<tr>
+<td>연결 인터페이스</td>
+<td>USB / Ethernet</td>
+</tr>
+</tbody>
+</table>
+<h3 id="21-상태-led-핀-배치-cm4">2.1 상태 LED 핀 배치 (CM4)<a class="headerlink" href="#21-상태-led-핀-배치-cm4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>LED 이름</th>
+<th>GPIO 핀</th>
+<th>제어 방식</th>
+<th><code>LedId</code> 상수</th>
+<th><code>open()</code> 기본 상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PWR</td>
+<td>GPIO 21</td>
+<td>gpiod</td>
+<td><code>LedId.PWR</code></td>
+<td>ON</td>
+</tr>
+<tr>
+<td>ERR</td>
+<td>GPIO 20</td>
+<td>gpiod</td>
+<td><code>LedId.ERR</code></td>
+<td>OFF</td>
+</tr>
+<tr>
+<td>ALM</td>
+<td>GPIO 16</td>
+<td>gpiod</td>
+<td><code>LedId.ALARM</code></td>
+<td>OFF</td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>Pi_LED_nActivity</td>
+<td><code>/sys/class/leds/ACT/</code></td>
+<td>—</td>
+<td>커널 제어</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>RUN</strong>: CM4의 Pi_LED_nActivity 핀에 연결된 LED입니다. 부팅 후 커널이 디스크 활동을 반영하며 자동 점멸합니다.
+<code>run_led_kernel(False)</code> 호출로 커널 제어를 해제한 후 <code>run_led_write()</code> 로 수동 제어할 수 있습니다.
+<code>close()</code> 시 커널 제어를 해제한 상태라면 자동으로 원래 trigger가 복원됩니다.</p>
+<p><strong>권한</strong>: <code>/sys/class/leds/ACT/trigger</code> · <code>/sys/class/leds/ACT/brightness</code> 쓰기는 <strong>root 권한</strong> 이 필요합니다.
+<code>run_led_kernel()</code> / <code>run_led_write()</code> 사용 시 <code>sudo</code> 로 실행하거나 root 컨텍스트에서 호출해야 합니다.</p>
+</blockquote>
+<hr />
+<h2 id="3-설치-및-시작하기">3. 설치 및 시작하기<a class="headerlink" href="#3-설치-및-시작하기" title="Permanent link">&para;</a></h2>
+<p>PRISM C100는 CM4를 내장하고 있으며 prismlib이 사전 설치되어 있어 별도의 설치 없이 연결하여 사용할 수 있습니다. CM4가 내장되지 않은 네트워크 타입(PRISM N 시리즈)은 사용하고자 하는 PC 등에 아래 설치 절차에 따라 prismlib을 설치한 후 사용할 수 있습니다. </p>
+<h3 id="31-연결-prism-c100-전용">3.1 연결 (PRISM C100 전용)<a class="headerlink" href="#31-연결-prism-c100-전용" title="Permanent link">&para;</a></h3>
+<p>PRISM C100은 CM4가 내장되어 있어 LAN 포트를 통해 ssh로 접속할 수 있습니다. LAN 포트는 아래와 같이 IP 주소가 설정되어 있습니다. PC 등 연결하고자 하는 PC의 IP 주소를 동일한 대역(예: 192.168.0.11)으로 설정한 후 SSH로 접속할 수 있습니다. </p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP 주소</td>
+<td>192.168.0.10</td>
+</tr>
+<tr>
+<td>서브넷 마스크</td>
+<td>255.255.255.0</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-bash">ssh admin@192.168.0.10
+</code></pre>
+<p>초기 SSH 접속 정보는 아래와 같습니다. <strong>최초 사용 전 반드시 변경하십시오.</strong></p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>초기값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>admin</td>
+</tr>
+<tr>
+<td>패스워드</td>
+<td>1234</td>
+</tr>
+</tbody>
+</table>
+<p>prismlib은 홈 폴더에 prismlib 폴더에 설치되어 있습니다. 
+예제 실행 </p>
+<pre><code class="language-bach">cd ~/prismlib/example/python/ 
+python continuous_scan.py
+</code></pre>
+<h3 id="32-설치">3.2 설치<a class="headerlink" href="#32-설치" title="Permanent link">&para;</a></h3>
+<h4 id="요구사항">요구사항<a class="headerlink" href="#요구사항" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>플랫폼</td>
+<td>Linux (CM4 라즈비안에서 테스트됨)</td>
+</tr>
+<tr>
+<td>빌드 도구</td>
+<td><code>gcc</code>, <code>make</code>, <code>pthread</code></td>
+</tr>
+<tr>
+<td>Python</td>
+<td>3.8 이상</td>
+</tr>
+<tr>
+<td>의존 패키지</td>
+<td><code>numpy</code>, <code>gpiod</code>, <code>python3-gpiod</code> (install.sh 자동 설치)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="다운로드">다운로드<a class="headerlink" href="#다운로드" title="Permanent link">&para;</a></h4>
+<pre><code class="language-bash">git clone https://github.com/rteslab/prismlib
+cd prismlib/
+</code></pre>
+<h4 id="설치">설치<a class="headerlink" href="#설치" title="Permanent link">&para;</a></h4>
+<p>C 라이브러리, Python 라이브러리, 의존 패키지, GPIO 전원 제어를 모두 한 번에 설치합니다.</p>
+<pre><code class="language-bash">sudo ./install.sh
+</code></pre>
+<p>실행 결과:</p>
+<pre><code>Building PRISM C library...
+Building examples...
+Installing PRISM C library...
+Installing numpy (required for ring buffer)...
+Checking gpiod...
+  gpiod tools: ok
+  python3-gpiod: ok
+Installing PRISM Python library...
+Successfully installed prismlib-1.0.0
+Cleaning build artifacts...
+Installing GPIO13 USB power control (udev + systemd)...
+  udev rule   : /etc/udev/rules.d/99-prism-usb-power.rules
+  systemd     : prism-usb-power.service (started on hub detection)
+
+PRISM library installed successfully.
+  C header   : /usr/local/include/prismlib.h
+  C library  : /usr/local/lib/libprismlib.so
+  C examples : examples/c/
+  Python     : pip show prismlib
+  GPIO13     : AUTO (HIGH after USB hub recognized on each boot)
+</code></pre>
+<h4 id="설치-확인">설치 확인<a class="headerlink" href="#설치-확인" title="Permanent link">&para;</a></h4>
+<pre><code class="language-bash"># C 라이브러리
+ls /usr/local/include/prismlib.h /usr/local/lib/libprismlib.so
+
+# Python 라이브러리
+pip show prismlib
+python3 -c &quot;from prismlib import prismlib; print('OK')&quot;
+</code></pre>
+<h4 id="gpio13-usb-전원-제어">GPIO13 USB 전원 제어<a class="headerlink" href="#gpio13-usb-전원-제어" title="Permanent link">&para;</a></h4>
+<p><code>install.sh</code>는 USB 허브(USB2514B)가 OS에 인식되는 시점에 ADC_USB_EN(GPIO13) PIN을 자동으로 HIGH로 설정하는 udev rule을 등록합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/etc/udev/rules.d/99-prism-usb-power.rules</code></td>
+<td>udev 규칙 (VID <code>0424</code> / PID <code>2514</code> 감지 시 트리거)</td>
+</tr>
+<tr>
+<td><code>/etc/systemd/system/prism-usb-power.service</code></td>
+<td><code>gpioset -c 0 13=1</code> 을 유지하는 systemd 서비스</td>
+</tr>
+</tbody>
+</table>
+<p>동작 순서:</p>
+<ol>
+<li>CM4 부팅</li>
+<li>USB 허브(USB2514B) OS 인식 → udev 트리거</li>
+<li><code>prism-usb-power.service</code> 시작 → <code>gpioset -c 0 13=1</code> 실행 및 유지</li>
+<li>GPIO13 HIGH → PRISM 장치 VBUS 인가</li>
+<li>PRISM 장치 부팅 및 TCP 서버 시작</li>
+<li><code>prismlib_open()</code> 연결 성공</li>
+</ol>
+<pre><code class="language-bash">lsusb | grep 0424
+# Bus 001 Device 002: ID 0424:2514 Microchip Technology, Inc. USB2514B/USB2517B
+
+systemctl status prism-usb-power.service
+
+gpioget -c 0 13
+# &quot;13&quot;=active  ← GPIO13 HIGH 확인
+</code></pre>
+<h4 id="제거">제거<a class="headerlink" href="#제거" title="Permanent link">&para;</a></h4>
+<pre><code class="language-bash">cd ~/git_repo/prismlib/
+sudo ./uninstall.sh
+</code></pre>
+<hr />
+<h3 id="33-c-예제-실행">3.3 C 예제 실행<a class="headerlink" href="#33-c-예제-실행" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">cd examples/c/
+
+# 유한 스캔: ch1~ch4, 1024 샘플 수집 후 종료
+./finite_scan 192.168.7.1 7777
+
+# 연속 스캔: Ctrl-C 입력 시까지 계속 수집
+./continuous_scan 192.168.7.1 7777
+</code></pre>
+<h4 id="사용자-코드-컴파일">사용자 코드 컴파일<a class="headerlink" href="#사용자-코드-컴파일" title="Permanent link">&para;</a></h4>
+<pre><code class="language-bash">gcc my_app.c -lprismlib -lpthread -lm -o my_app
+</code></pre>
+<hr />
+<h3 id="34-python-예제-실행">3.4 Python 예제 실행<a class="headerlink" href="#34-python-예제-실행" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">cd examples/python/
+
+# 유한 스캔: ch1~ch4, 1024 샘플 수집 후 종료
+python3 finite_scan.py 192.168.7.1 7777
+
+# 연속 스캔: Ctrl-C 입력 시까지 계속 수집
+python3 continuous_scan.py 192.168.7.1 7777
+</code></pre>
+<h4 id="기본-사용-예시">기본 사용 예시<a class="headerlink" href="#기본-사용-예시" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">import time
+from prismlib import prismlib, ScanOptions, ScanStatus
+
+dev = prismlib(&quot;192.168.7.1&quot;, 7777)
+dev.open()
+
+try:
+    print(dev.fw_version())      # 예: &quot;1.0.0&quot;
+    print(dev.serial())          # 예: &quot;PRISM-0001&quot;
+
+    dev.sens_write(0, 100.0)     # 감도: 100 mV/g
+    dev.iepe_write(0, True)      # IEPE 전원 ON
+    time.sleep(2.0)              # 바이어스 전류 안정화 대기 (500 ms ~ 2초)
+
+    dev.scan_start(0x01, 512, ScanOptions.DEFAULT)
+    data, status = dev.scan_read(512, timeout=5.0)
+    print(f&quot;Read {len(data)} values&quot;)
+
+finally:
+    dev.iepe_write(0, False)
+    dev.scan_cleanup()
+    dev.close()
+</code></pre>
+<h4 id="다중-장치-동시-제어">다중 장치 동시 제어<a class="headerlink" href="#다중-장치-동시-제어" title="Permanent link">&para;</a></h4>
+<p>각 <code>prismlib</code> 인스턴스는 독립된 TCP 연결을 유지하므로 장치 수에 제한 없이 동시 제어가 가능합니다.</p>
+<pre><code class="language-python">from prismlib import prismlib, ScanOptions
+
+dev1 = prismlib(&quot;192.168.1.10&quot;, 7777)
+dev2 = prismlib(&quot;192.168.1.11&quot;, 7777)
+dev1.open()
+dev2.open()
+
+dev1.scan_start(0x0F, 1024, ScanOptions.DEFAULT)
+dev2.scan_start(0x03, 1024, ScanOptions.DEFAULT)
+
+# ... 데이터 수집 후
+dev1.scan_cleanup()
+dev2.scan_cleanup()
+dev1.close()
+dev2.close()
+</code></pre>
+<hr />
+<h2 id="4-공통-상수-및-열거형">4. 공통 상수 및 열거형<a class="headerlink" href="#4-공통-상수-및-열거형" title="Permanent link">&para;</a></h2>
+<h3 id="41-resultcode">4.1 ResultCode<a class="headerlink" href="#41-resultcode" title="Permanent link">&para;</a></h3>
+<p>모든 C API 함수는 <code>int</code> 형으로 아래 코드를 반환합니다.
+Python API는 오류 시 <code>prismlibError</code> 예외를 발생시킵니다.</p>
+<pre><code class="language-c">enum ResultCode
+{
+    RESULT_SUCCESS           =  0,   // 정상
+    RESULT_BAD_PARAMETER     = -1,   // 파라미터 오류
+    RESULT_BUSY              = -2,   // 디바이스 사용 중 (스캔 실행 중)
+    RESULT_TIMEOUT           = -3,   // 응답 타임아웃
+    RESULT_LOCK_TIMEOUT      = -4,   // 리소스 잠금 타임아웃
+    RESULT_RESOURCE_UNAVAIL  = -6,   // 필요 리소스 없음
+    RESULT_COMMS_FAILURE     = -7,   // 통신 실패
+    RESULT_UNDEFINED         = -10   // 기타 오류
+};
+</code></pre>
+<h3 id="42-scan-options">4.2 Scan Options<a class="headerlink" href="#42-scan-options" title="Permanent link">&para;</a></h3>
+<p><code>prismlib_scan_start()</code> / <code>prismlib.scan_start()</code> 의 <code>options</code> 파라미터에 OR 조합하여 사용합니다.</p>
+<pre><code class="language-c">#define OPTS_DEFAULT          (0x0000)  // 기본값 (스케일/캘리브레이션 적용, 유한 모드)
+#define OPTS_NOSCALEDATA      (0x0001)  // 전압 변환 없이 ADC 원시 코드 반환
+#define OPTS_NOCALIBRATEDATA  (0x0002)  // 캘리브레이션 계수 미적용
+#define OPTS_CONTINUOUS       (0x0010)  // 명시적 중지 전까지 연속 스캔
+#define OPTS_TCP_DATA         (0x0020)  // ADC 데이터를 UDP 대신 TCP 소켓으로 수신
+</code></pre>
+<h4 id="데이터-전송-모드-udp-vs-tcp">데이터 전송 모드: UDP vs TCP<a class="headerlink" href="#데이터-전송-모드-udp-vs-tcp" title="Permanent link">&para;</a></h4>
+<p>PRISM은 스캔 데이터를 <strong>UDP(기본값)</strong> 또는 <strong>TCP</strong>(<code>OPTS_TCP_DATA</code>) 중 하나의 방식으로 수신할 수 있습니다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>UDP (기본)</th>
+<th>TCP (<code>OPTS_TCP_DATA</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>전송 방식</td>
+<td>비연결형 데이터그램</td>
+<td>연결형 스트림</td>
+</tr>
+<tr>
+<td>재전송</td>
+<td>없음</td>
+<td>있음 (자동 재전송)</td>
+</tr>
+<tr>
+<td>신뢰성</td>
+<td>네트워크 상태에 따라 데이터 손실 가능</td>
+<td>전송 순서와 완전성 보장</td>
+</tr>
+<tr>
+<td>오버헤드</td>
+<td>낮음 — 고속·저지연에 유리</td>
+<td>높음 — 흐름 제어 및 재전송 오버헤드 발생</td>
+</tr>
+<tr>
+<td>권장 상황</td>
+<td>고속 연속 스트리밍</td>
+<td>저속·저대역폭 환경에서 완전성이 중요한 경우</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>USB 연결 모델 제한</strong>: USB NCM 인터페이스로 연결된 장치는 <strong>UDP 모드만 지원</strong>합니다.
+TCP 모드(<code>OPTS_TCP_DATA</code>)는 USB NCM의 흐름 제어 오버헤드로 인해 고속 스트리밍 시 심각한 데이터 손실이 발생하므로 사용하지 않아야 합니다.</p>
+</blockquote>
+<h3 id="43-scan-status-플래그">4.3 Scan Status 플래그<a class="headerlink" href="#43-scan-status-플래그" title="Permanent link">&para;</a></h3>
+<p><code>prismlib_scan_read()</code> / <code>prismlib_scan_status()</code> 의 <code>status</code> 출력에 OR 조합으로 반환됩니다.</p>
+<pre><code class="language-c">#define STATUS_HW_OVERRUN      (0x0001)  // PRISM 장치 ADC 오버런
+#define STATUS_BUFFER_OVERRUN  (0x0002)  // 호스트 내부 수신 버퍼 오버런
+#define STATUS_RUNNING         (0x0008)  // 스캔 실행 중
+</code></pre>
+<blockquote>
+<p>두 오버런 플래그는 <strong>sticky</strong>입니다 — 한 번 세팅되면 <code>scan_cleanup()</code> 호출 전까지 유지됩니다.</p>
+</blockquote>
+<hr />
+<h4 id="status_hw_overrun-0x0001--장치측-adc-오버런">STATUS_HW_OVERRUN (0x0001) — 장치측 ADC 오버런<a class="headerlink" href="#status_hw_overrun-0x0001--장치측-adc-오버런" title="Permanent link">&para;</a></h4>
+<p><strong>발생 위치</strong>: PRISM 장치 내부 (ADC 데이터 수집 모듈)</p>
+<p><strong>원인</strong>: ADC 데이터 수집 모듈이 데이터를 생성하는 속도보다 장치 펌웨어가 이를 소비하는 속도가 느릴 때 발생합니다. 정상 운용에서는 발생하지 않으며, 펌웨어 이상이나 내부 과부하 상황에서만 나타납니다.</p>
+<p><strong>대처</strong>: 발생 시 스캔을 중단(<code>scan_stop()</code>) 후 재시작합니다.</p>
+<hr />
+<h4 id="status_buffer_overrun-0x0002--호스트측-링-버퍼-오버런">STATUS_BUFFER_OVERRUN (0x0002) — 호스트측 링 버퍼 오버런<a class="headerlink" href="#status_buffer_overrun-0x0002--호스트측-링-버퍼-오버런" title="Permanent link">&para;</a></h4>
+<p><strong>발생 위치</strong>: 호스트(라이브러리) 내부 링 버퍼</p>
+<p><strong>구조</strong>:</p>
+<pre><code>PRISM 장치                호스트 라이브러리
+──────────              ────────────────────────────────────
+ADC 수집 → UDP 전송 →  [C 수신 스레드] → [링 버퍼] → scan_read()
+                                              ↑              ↑
+                                           쓰기(C스레드)  읽기(사용자)
+</code></pre>
+<p>수신 스레드(C pthread)가 UDP 데이터를 링 버퍼에 쓰는 속도보다 사용자 코드가 <code>scan_read()</code>로 읽는 속도가 느리면 링 버퍼가 가득 차 오버런이 발생합니다.</p>
+<p><strong>링 버퍼 용량</strong>: <code>scan_start()</code> 의 <code>samples_per_channel</code>과 샘플링 속도 기반 기본값 중 큰 값으로 결정됩니다. 기본값은 약 2초 분량입니다.</p>
+<table>
+<thead>
+<tr>
+<th>샘플링 속도</th>
+<th>기본 링 버퍼 용량</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>64 kS/s</td>
+<td>128,000 샘플/ch</td>
+</tr>
+<tr>
+<td>128 kS/s</td>
+<td>256,000 샘플/ch</td>
+</tr>
+<tr>
+<td>256 kS/s</td>
+<td>512,000 샘플/ch</td>
+</tr>
+<tr>
+<td>512 kS/s</td>
+<td>1,024,000 샘플/ch</td>
+</tr>
+</tbody>
+</table>
+<p><strong>주요 원인 및 대처</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>원인</th>
+<th>대처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scan_read()</code> 루프 내 처리가 느림 (Python 연산 과다)</td>
+<td>처리 로직 경량화, numpy 벡터 연산 활용</td>
+</tr>
+<tr>
+<td>Python GIL로 인한 처리 지연</td>
+<td>C 백엔드(<code>libprismlib.so</code>) 사용</td>
+</tr>
+<tr>
+<td>링 버퍼가 너무 작음</td>
+<td><code>scan_start()</code> <code>samples_per_channel</code> 값을 크게 설정</td>
+</tr>
+<tr>
+<td>512 kS/s에서 Python 소비 속도 부족</td>
+<td>C 예제(<code>continuous_scan_cnt.c</code>) 또는 C 백엔드 사용</td>
+</tr>
+</tbody>
+</table>
+<p><strong>감지 및 처리 예시</strong>:</p>
+<pre><code class="language-c">/* C */
+while (status &amp; STATUS_RUNNING) {
+    prismlib_scan_read(dev, &amp;status, 1000, 1.0, buf, buf_size, &amp;n_read);
+
+    if (status &amp; STATUS_BUFFER_OVERRUN) {
+        fprintf(stderr, &quot;Buffer overrun — consumer too slow\n&quot;);
+        break;
+    }
+    /* 데이터 처리 */
+}
+</code></pre>
+<pre><code class="language-python"># Python
+while status &amp; ScanStatus.RUNNING:
+    data, status = prism.scan_read(1000, timeout=1.0)
+
+    if status &amp; ScanStatus.BUFFER_OVERRUN:
+        print(&quot;Buffer overrun — consumer too slow&quot;)
+        break
+</code></pre>
+<hr />
+<h3 id="44-장치-연결-상태">4.4 장치 연결 상태<a class="headerlink" href="#44-장치-연결-상태" title="Permanent link">&para;</a></h3>
+<p>PRISM 장치는 연결 상태에 따라 아래 4개 상태를 유지합니다.
+<code>open()</code> / <code>scan_start()</code> 등 라이브러리 함수가 상태 전환을 자동으로 처리하므로 사용자가 직접 관리할 필요는 없습니다.</p>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>진입 조건</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DISCONNECTED</strong></td>
+<td>초기 / 연결 해제</td>
+<td>연결 없음</td>
+</tr>
+<tr>
+<td><strong>IDLE</strong></td>
+<td><code>open()</code> 호출 후</td>
+<td>명령 수신 가능 상태</td>
+</tr>
+<tr>
+<td><strong>SCANNING</strong></td>
+<td><code>scan_start()</code> 호출 후</td>
+<td>데이터 수집 중</td>
+</tr>
+<tr>
+<td><strong>SCAN_STOPPING</strong></td>
+<td><code>scan_stop()</code> 호출 후</td>
+<td><code>scan_cleanup()</code> 대기</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>IDLE · SCANNING · SCAN_STOPPING 은 모두 장치가 연결된 <strong>Connected</strong> 상태입니다.</p>
+</blockquote>
+<hr />
+<h3 id="45-samplerate">4.5 SampleRate<a class="headerlink" href="#45-samplerate" title="Permanent link">&para;</a></h3>
+<p><code>prismlib_sampleRate_write()</code> / <code>prismlib.sampleRate_write()</code> 에 전달하는 샘플링 속도 열거형입니다.</p>
+<pre><code class="language-c">/* C */
+typedef enum {
+    PRISM_SR_64K  = 0,   /*  64 kS/s — 기본값 */
+    PRISM_SR_128K = 1,   /* 128 kS/s */
+    PRISM_SR_170K = 2,   /* 170 kS/s */
+    PRISM_SR_256K = 3,   /* 256 kS/s */
+    PRISM_SR_512K = 4,   /* 512 kS/s — 최대 */
+} PrismSampleRate_e;
+</code></pre>
+<pre><code class="language-python"># Python
+from prismlib import SampleRate
+
+SampleRate.SR_64K   # 0
+SampleRate.SR_128K  # 1
+SampleRate.SR_170K  # 2
+SampleRate.SR_256K  # 3
+SampleRate.SR_512K  # 4
+</code></pre>
+<hr />
+<h3 id="46-ledid">4.6 LedId<a class="headerlink" href="#46-ledid" title="Permanent link">&para;</a></h3>
+<p><code>led_write()</code> / <code>prismlib_led_write()</code> 의 <code>led_id</code> 파라미터에 사용하는 LED 식별자 상수입니다.</p>
+<pre><code class="language-c">/* C */
+#define PRISM_LED_PWR    21   /* GPIO 21, PWR LED (open() 시 ON)  */
+#define PRISM_LED_ERR    20   /* GPIO 20, ERR LED (open() 시 OFF) */
+#define PRISM_LED_ALARM  16   /* GPIO 16, ALM LED (open() 시 OFF) */
+</code></pre>
+<pre><code class="language-python"># Python
+from prismlib import LedId
+
+LedId.PWR    # 21 — GPIO 21, PWR LED (open() 시 ON)
+LedId.ERR    # 20 — GPIO 20, ERR LED (open() 시 OFF)
+LedId.ALARM  # 16 — GPIO 16, ALM LED (open() 시 OFF)
+</code></pre>
+<hr />
+<h2 id="5-c-api">5. C API<a class="headerlink" href="#5-c-api" title="Permanent link">&para;</a></h2>
+<h3 id="51-함수-목록">5.1 함수 목록<a class="headerlink" href="#51-함수-목록" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#prismlib_open"><code>prismlib_open()</code></a></td>
+<td>디바이스 연결 열기</td>
+</tr>
+<tr>
+<td><a href="#prismlib_is_open"><code>prismlib_is_open()</code></a></td>
+<td>연결 상태 확인</td>
+</tr>
+<tr>
+<td><a href="#prismlib_close"><code>prismlib_close()</code></a></td>
+<td>디바이스 연결 닫기</td>
+</tr>
+<tr>
+<td><a href="#prismlib_info"><code>prismlib_info()</code></a></td>
+<td>디바이스 상수 정보 조회</td>
+</tr>
+<tr>
+<td><a href="#prismlib_fw_version"><code>prismlib_fw_version()</code></a></td>
+<td>펌웨어 버전 읽기</td>
+</tr>
+<tr>
+<td><a href="#prismlib_serial"><code>prismlib_serial()</code></a></td>
+<td>시리얼 번호 읽기</td>
+</tr>
+<tr>
+<td><a href="#prismlib_error_msg"><code>prismlib_error_msg()</code></a></td>
+<td>ResultCode 설명 문자열 반환</td>
+</tr>
+<tr>
+<td><a href="#prismlib_cal_date"><code>prismlib_cal_date()</code></a></td>
+<td>캘리브레이션 날짜 읽기</td>
+</tr>
+<tr>
+<td><a href="#prismlib_cal_read"><code>prismlib_cal_read()</code></a></td>
+<td>캘리브레이션 계수 읽기 (메모리, 장치 통신 없음)</td>
+</tr>
+<tr>
+<td><a href="#prismlib_cal_write"><code>prismlib_cal_write()</code></a></td>
+<td>캘리브레이션 계수 세션 내 변경 (<strong>로컬 전용</strong>)</td>
+</tr>
+<tr>
+<td><a href="#prismlib_iepe_read"><code>prismlib_iepe_read()</code></a></td>
+<td>IEPE 전원 설정 읽기</td>
+</tr>
+<tr>
+<td><a href="#prismlib_iepe_write"><code>prismlib_iepe_write()</code></a></td>
+<td>IEPE 전원 설정 변경</td>
+</tr>
+<tr>
+<td><a href="#prismlib_iepe_diag"><code>prismlib_iepe_diag()</code></a></td>
+<td>IEPE 채널별 고장 진단</td>
+</tr>
+<tr>
+<td><a href="#prismlib_sens_read"><code>prismlib_sens_read()</code></a></td>
+<td>센서 감도 읽기 (메모리, 장치 통신 없음)</td>
+</tr>
+<tr>
+<td><a href="#prismlib_sens_write"><code>prismlib_sens_write()</code></a></td>
+<td>센서 감도 세션 내 변경 (<strong>로컬 전용</strong>)</td>
+</tr>
+<tr>
+<td><a href="#prismlib_sampleRate_read"><code>prismlib_sampleRate_read()</code></a></td>
+<td>샘플링 속도 읽기</td>
+</tr>
+<tr>
+<td><a href="#prismlib_sampleRate_write"><code>prismlib_sampleRate_write()</code></a></td>
+<td>샘플링 속도 설정</td>
+</tr>
+<tr>
+<td><a href="#prismlib_scan_start"><code>prismlib_scan_start()</code></a></td>
+<td>아날로그 입력 스캔 시작</td>
+</tr>
+<tr>
+<td><a href="#prismlib_scan_stop"><code>prismlib_scan_stop()</code></a></td>
+<td>스캔 중지</td>
+</tr>
+<tr>
+<td><a href="#prismlib_scan_read"><code>prismlib_scan_read()</code></a></td>
+<td>스캔 데이터 읽기</td>
+</tr>
+<tr>
+<td><a href="#prismlib_scan_status"><code>prismlib_scan_status()</code></a></td>
+<td>스캔 상태 확인</td>
+</tr>
+<tr>
+<td><a href="#prismlib_scan_cleanup"><code>prismlib_scan_cleanup()</code></a></td>
+<td>스캔 리소스 해제</td>
+</tr>
+<tr>
+<td><a href="#prismlib_scan_ch_count"><code>prismlib_scan_ch_count()</code></a></td>
+<td>활성 채널 수 반환</td>
+</tr>
+<tr>
+<td><a href="#prismlib_scan_buf_size"><code>prismlib_scan_buf_size()</code></a></td>
+<td>내부 버퍼 크기 반환</td>
+</tr>
+<tr>
+<td><a href="#prismlib_led_write"><code>prismlib_led_write()</code></a></td>
+<td>상태 LED On/Off (PWR / ERR / ALM)</td>
+</tr>
+<tr>
+<td><a href="#prismlib_run_led_kernel"><code>prismlib_run_led_kernel()</code></a></td>
+<td>RUN LED 커널 제어 연결/해제</td>
+</tr>
+<tr>
+<td><a href="#prismlib_run_led_write"><code>prismlib_run_led_write()</code></a></td>
+<td>RUN LED 수동 On/Off</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="52-디바이스-관리">5.2 디바이스 관리<a class="headerlink" href="#52-디바이스-관리" title="Permanent link">&para;</a></h3>
+<p><a name="prismlib_open"></a></p>
+<h4 id="prismlib_open"><code>prismlib_open()</code><a class="headerlink" href="#prismlib_open" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">prismlib_t *prismlib_open(const char *ip, uint16_t port);
+</code></pre>
+<p><strong>기능</strong>: 지정한 IP/포트의 디바이스에 연결하고 리소스를 초기화합니다.
+감도 기본값은 1000 mV/unit으로 초기화됩니다.</p>
+<p>연결 직후 아래 2단계 순서로 캘리브레이션 계수를 자동 설정합니다.</p>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>동작</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>내부 초기화</td>
+<td>slope = 1.0, offset = 0.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>CMD_CAL_READ</code> × 4채널</td>
+<td>장치 Flash(공장 cal)에서 읽어 덮어씀</td>
+</tr>
+</tbody>
+</table>
+<p>이후 <code>cal_read()</code>는 장치 Flash에서 읽어온 공장 캘리브레이션 값을 반환합니다.
+사용자가 <code>cal_write()</code>를 호출하면 그 채널의 값이 메모리에서 변경되어 <code>cal_read()</code>에 즉시 반영됩니다.
+cal 값은 세션(연결) 동안만 유효하며, <code>close()</code> 후 재연결하면 공장 값으로 복원됩니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>in</td>
+<td><code>const char*</code></td>
+<td>장치 IP 주소 문자열 (예: <code>"192.168.7.1"</code>)</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>in</td>
+<td><code>uint16_t</code></td>
+<td>TCP 포트 번호 (예: <code>7777</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>prismlib_t*</code> 핸들 — 성공 시 유효한 포인터, 실패 시 <code>NULL</code></p>
+<pre><code class="language-c">/* 사용 예 */
+prismlib_t *dev = prismlib_open(&quot;192.168.7.1&quot;, 7777);
+if (dev == NULL) { /* 연결 실패 */ }
+</code></pre>
+<hr />
+<p><a name="prismlib_is_open"></a></p>
+<h4 id="prismlib_is_open"><code>prismlib_is_open()</code><a class="headerlink" href="#prismlib_is_open" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_is_open(prismlib_t *dev);
+</code></pre>
+<p><strong>기능</strong>: 디바이스 연결 상태를 확인합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>1</code> = 연결됨, <code>0</code> = 연결 안 됨</p>
+<hr />
+<p><a name="prismlib_close"></a></p>
+<h4 id="prismlib_close"><code>prismlib_close()</code><a class="headerlink" href="#prismlib_close" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_close(prismlib_t *dev);
+</code></pre>
+<p><strong>기능</strong>: 연결을 닫고 핸들 리소스를 해제합니다. 호출 후 <code>dev</code> 포인터는 무효가 됩니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_info"></a></p>
+<h4 id="prismlib_info"><code>prismlib_info()</code><a class="headerlink" href="#prismlib_info" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">struct PrismlibDeviceInfo *prismlib_info(prismlib_t *dev);
+</code></pre>
+<p><strong>기능</strong>: 디바이스 하드웨어 상수 정보 포인터를 반환합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>struct PrismlibDeviceInfo*</code> — 핸들 내부 구조체 포인터 (<code>free</code> 불필요)</p>
+<hr />
+<p><a name="prismlib_fw_version"></a></p>
+<h4 id="prismlib_fw_version"><code>prismlib_fw_version()</code><a class="headerlink" href="#prismlib_fw_version" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_fw_version(prismlib_t *dev, char *buffer);
+</code></pre>
+<p><strong>기능</strong>: 펌웨어 버전 문자열을 읽습니다 (예: <code>"1.0.0"</code>).</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>buffer</code></td>
+<td>out</td>
+<td><code>char*</code></td>
+<td>버전 문자열 수신 버퍼 (최소 16자 이상 할당)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_serial"></a></p>
+<h4 id="prismlib_serial"><code>prismlib_serial()</code><a class="headerlink" href="#prismlib_serial" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_serial(prismlib_t *dev, char *buffer);
+</code></pre>
+<p><strong>기능</strong>: 시리얼 번호 문자열을 읽습니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>buffer</code></td>
+<td>out</td>
+<td><code>char*</code></td>
+<td>시리얼 번호 수신 버퍼 (최소 32자 이상 할당)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_error_msg"></a></p>
+<h4 id="prismlib_error_msg"><code>prismlib_error_msg()</code><a class="headerlink" href="#prismlib_error_msg" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">const char *prismlib_error_msg(int result);
+</code></pre>
+<p><strong>기능</strong>: ResultCode에 대한 문자열 설명을 반환합니다. 핸들 불필요.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>result</code></td>
+<td>in</td>
+<td><code>int</code></td>
+<td>ResultCode 값</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: 에러 메시지 문자열 포인터 (<code>const char*</code>)</p>
+<hr />
+<h3 id="53-캘리브레이션">5.3 캘리브레이션<a class="headerlink" href="#53-캘리브레이션" title="Permanent link">&para;</a></h3>
+<p><a name="prismlib_cal_date"></a></p>
+<h4 id="prismlib_cal_date"><code>prismlib_cal_date()</code><a class="headerlink" href="#prismlib_cal_date" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_cal_date(prismlib_t *dev, char *buffer);
+</code></pre>
+<p><strong>기능</strong>: 캘리브레이션 날짜 문자열을 읽습니다 (형식: <code>"YYYY-MM-DD"</code>).</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>buffer</code></td>
+<td>out</td>
+<td><code>char*</code></td>
+<td>날짜 수신 버퍼 (최소 11자 이상 할당)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_cal_read"></a></p>
+<h4 id="prismlib_cal_read"><code>prismlib_cal_read()</code><a class="headerlink" href="#prismlib_cal_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_cal_read(prismlib_t *dev, uint8_t channel, double *slope, double *offset);
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 현재 캘리브레이션 계수를 반환합니다.
+<strong>장치 통신 없음</strong> — 라이브러리 메모리에서 즉시 반환합니다.</p>
+<ul>
+<li><code>prismlib_open()</code> 직후: 장치 Flash(공장 cal)에서 로드된 값</li>
+<li><code>prismlib_cal_write()</code> 호출 후: 사용자가 변경한 값</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>in</td>
+<td><code>uint8_t</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>slope</code></td>
+<td>out</td>
+<td><code>double*</code></td>
+<td>게인 보정 배율</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>out</td>
+<td><code>double*</code></td>
+<td>제로 오프셋 보정값</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_cal_write"></a></p>
+<h4 id="prismlib_cal_write"><code>prismlib_cal_write()</code><a class="headerlink" href="#prismlib_cal_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_cal_write(prismlib_t *dev, uint8_t channel, double slope, double offset);
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 캘리브레이션 계수를 세션 내에서 변경합니다.
+<strong>로컬 전용</strong> — 라이브러리 메모리만 업데이트합니다. <code>close()</code> 후 재연결하면 공장 값으로 복원됩니다.</p>
+<ul>
+<li>호출 즉시 <code>cal_read()</code>에 반영됩니다.</li>
+<li>다음 <code>scan_start()</code> 시점부터 스캔 변환에 적용됩니다.</li>
+<li><strong>스캔 실행 중 호출하면 <code>RESULT_BUSY</code>를 반환합니다.</strong> <code>scan_stop()</code> + <code>scan_cleanup()</code> 후 호출하십시오.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>in</td>
+<td><code>uint8_t</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>slope</code></td>
+<td>in</td>
+<td><code>double</code></td>
+<td>게인 보정 배율. 공장 초기값 = <code>1.0</code></td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>in</td>
+<td><code>double</code></td>
+<td>제로 오프셋 보정값. 공장 초기값 = <code>0.0</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_BUSY</code> = 스캔 중)</p>
+<pre><code class="language-c">/* 사용 예 */
+prismlib_cal_write(dev, 0, 1.23456, 0.001);   /* 채널 0 cal 변경 */
+double s, o;
+prismlib_cal_read(dev, 0, &amp;s, &amp;o);            /* 즉시 반영 확인 */
+/* 이후 scan_start() 시 변경된 cal 값이 적용됨 */
+</code></pre>
+<hr />
+<h3 id="54-iepe-설정">5.4 IEPE 설정<a class="headerlink" href="#54-iepe-설정" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>IEPE (Integrated Electronics Piezo-Electric): ICP 방식 압전 센서(가속도계, 음압 센서)에
+필요한 일정 전류를 채널별로 공급하는 기능입니다.</p>
+</blockquote>
+<p><a name="prismlib_iepe_read"></a></p>
+<h4 id="prismlib_iepe_read"><code>prismlib_iepe_read()</code><a class="headerlink" href="#prismlib_iepe_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_iepe_read(prismlib_t *dev, uint8_t channel, uint8_t *config);
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 IEPE 전원 설정을 읽습니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>in</td>
+<td><code>uint8_t</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td>out</td>
+<td><code>uint8_t*</code></td>
+<td><code>0</code> = OFF, <code>1</code> = ON</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_iepe_write"></a></p>
+<h4 id="prismlib_iepe_write"><code>prismlib_iepe_write()</code><a class="headerlink" href="#prismlib_iepe_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_iepe_write(prismlib_t *dev, uint8_t channel, uint8_t config);
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 IEPE 전원을 설정합니다. 스캔 실행 중 호출 시 <code>RESULT_BUSY</code> 반환.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>in</td>
+<td><code>uint8_t</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td>in</td>
+<td><code>uint8_t</code></td>
+<td><code>0</code> = OFF, <code>1</code> = ON</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_BUSY</code> = 스캔 중)</p>
+<blockquote>
+<p><strong>주의</strong>: IEPE 전원을 켠 직후에는 센서 바이어스 전류가 안정화되기까지 시간이 필요합니다.
+<code>config=1</code> 설정 후 <strong>500 ms ~ 2초 대기</strong> 한 뒤 스캔 및 <code>prismlib_iepe_diag()</code>를 호출해야
+정상적인 데이터와 진단 결과를 얻을 수 있습니다.</p>
+</blockquote>
+<hr />
+<p><a name="prismlib_iepe_diag"></a></p>
+<h4 id="prismlib_iepe_diag"><code>prismlib_iepe_diag()</code><a class="headerlink" href="#prismlib_iepe_diag" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_iepe_diag(prismlib_t *dev, uint8_t *fault_mask);
+</code></pre>
+<p><strong>기능</strong>: 전체 4채널의 IEPE 고장 여부를 비트마스크로 반환합니다.
+각 비트가 <code>1</code>이면 해당 채널에 IEPE 회로 이상(센서 미연결 또는 단락)이 감지된 것입니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>fault_mask</code></td>
+<td>out</td>
+<td><code>uint8_t*</code></td>
+<td>비트마스크: bit0=ch1, bit1=ch2, bit2=ch3, bit3=ch4 (<code>1</code>=고장)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<blockquote>
+<p>IEPE를 켠 후 안정화 대기(500 ms ~ 2초) 없이 호출하면 고장으로 오진단될 수 있습니다.</p>
+</blockquote>
+<pre><code class="language-c">uint8_t mask;
+prismlib_iepe_diag(dev, &amp;mask);
+for (int ch = 0; ch &lt; 4; ch++) {
+    if (mask &amp; (1 &lt;&lt; ch))
+        printf(&quot;ch%d: IEPE fault\n&quot;, ch + 1);
+}
+</code></pre>
+<hr />
+<h3 id="55-센서-감도">5.5 센서 감도<a class="headerlink" href="#55-센서-감도" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong><code>scan_read()</code> 샘플 변환 의사코드</strong> (<code>convert_sample()</code> 내부 동작):</p>
+<p>```
+code = raw                                          // raw int24 ADC code</p>
+<p>if NOCALIBRATEDATA 플래그 없음:                    // 기본 동작
+    code = (raw - cal_offset) × cal_slope          // cal 보정 적용</p>
+<p>if NOSCALEDATA 플래그 있음:
+    return code                                     // ADC code 단위로 반환 (종료)</p>
+<p>voltage = code / 8388607.0 × 5.0                   // ADC code → 전압 (V)
+return voltage / (sensitivity / 1000.0)            // 전압 → 물리량
+```</p>
+<table>
+<thead>
+<tr>
+<th>옵션 조합</th>
+<th>반환값</th>
+<th>단위 예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기본 (<code>OPTS_DEFAULT</code>)</td>
+<td>물리량</td>
+<td>V (sens=1000), g (sens=100)</td>
+</tr>
+<tr>
+<td><code>OPTS_NOSCALEDATA</code></td>
+<td>calibrated ADC code</td>
+<td>±8,388,607 범위 정수</td>
+</tr>
+<tr>
+<td><code>OPTS_NOSCALEDATA \| OPTS_NOCALIBRATEDATA</code></td>
+<td>raw ADC code</td>
+<td>±8,388,607 범위 정수</td>
+</tr>
+<tr>
+<td><code>OPTS_NOCALIBRATEDATA</code> 단독</td>
+<td>cal 없이 물리량 변환</td>
+<td>V</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><a name="prismlib_sens_read"></a></p>
+<h4 id="prismlib_sens_read"><code>prismlib_sens_read()</code><a class="headerlink" href="#prismlib_sens_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_sens_read(prismlib_t *dev, uint8_t channel, double *value);
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 현재 감도 설정값을 반환합니다.
+<strong>로컬 전용</strong> — 라이브러리 메모리에서 즉시 반환합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>in</td>
+<td><code>uint8_t</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>out</td>
+<td><code>double*</code></td>
+<td>감도 수신 (mV / 물리단위)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_sens_write"></a></p>
+<h4 id="prismlib_sens_write"><code>prismlib_sens_write()</code><a class="headerlink" href="#prismlib_sens_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_sens_write(prismlib_t *dev, uint8_t channel, double value);
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 센서 감도를 세션 내에서 설정합니다. 센서 데이터시트의 감도 스펙(mV/물리단위)을 그대로 입력합니다.
+<strong>로컬 전용</strong> — 라이브러리 메모리에 저장됩니다. <code>close()</code> 후 재연결하면 기본값(1000 mV/unit)으로 복원됩니다.</p>
+<ul>
+<li>다음 <code>scan_start()</code> 시점부터 스캔 변환에 적용됩니다.</li>
+<li><strong>스캔 실행 중 호출하면 <code>RESULT_BUSY</code>를 반환합니다.</strong> <code>scan_stop()</code> + <code>scan_cleanup()</code> 후 호출하십시오.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>in</td>
+<td><code>uint8_t</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>in</td>
+<td><code>double</code></td>
+<td>센서 감도 (mV / 물리단위). 기본값 = <code>1000</code>. 0 이하는 <code>RESULT_BAD_PARAMETER</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_BUSY</code> = 스캔 중, <code>RESULT_BAD_PARAMETER</code> = 0 이하 값)</p>
+<p><strong>설정 예시</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>센서</th>
+<th>데이터시트 감도</th>
+<th>설정값</th>
+<th>스캔 반환 단위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기본 (전압 그대로)</td>
+<td>—</td>
+<td>1000</td>
+<td>V</td>
+</tr>
+<tr>
+<td>가속도계</td>
+<td>100 mV/g</td>
+<td>100</td>
+<td>g</td>
+</tr>
+<tr>
+<td>진동 센서</td>
+<td>10 V/g (= 10,000 mV/g)</td>
+<td>10000</td>
+<td>g</td>
+</tr>
+<tr>
+<td>음향 센서</td>
+<td>50 mV/Pa</td>
+<td>50</td>
+<td>Pa</td>
+</tr>
+<tr>
+<td>압력 센서</td>
+<td>200 mV/bar</td>
+<td>200</td>
+<td>bar</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-c">/* 사용 예 */
+prismlib_sens_write(dev, 0, 100.0);    /* 채널 0: 100 mV/g 가속도계 */
+prismlib_sens_write(dev, 1, 50.0);     /* 채널 1: 50 mV/Pa 음향 센서 */
+</code></pre>
+<hr />
+<h3 id="56-샘플링-속도-설정">5.6 샘플링 속도 설정<a class="headerlink" href="#56-샘플링-속도-설정" title="Permanent link">&para;</a></h3>
+<p><a name="prismlib_sampleRate_read"></a></p>
+<h4 id="prismlib_samplerate_read"><code>prismlib_sampleRate_read()</code><a class="headerlink" href="#prismlib_samplerate_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_sampleRate_read(prismlib_t *dev, PrismSampleRate_e *sample_rate);
+</code></pre>
+<p><strong>기능</strong>: 현재 설정된 채널당 샘플링 속도를 읽습니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>sample_rate</code></td>
+<td>out</td>
+<td><code>PrismSampleRate_e*</code></td>
+<td>현재 샘플링 속도</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_sampleRate_write"></a></p>
+<h4 id="prismlib_samplerate_write"><code>prismlib_sampleRate_write()</code><a class="headerlink" href="#prismlib_samplerate_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_sampleRate_write(prismlib_t *dev, PrismSampleRate_e sample_rate);
+</code></pre>
+<p><strong>기능</strong>: 채널당 샘플링 속도를 설정합니다. 기본값: <strong><code>PRISM_SR_64K</code></strong></p>
+<blockquote>
+<p><strong>주의</strong>: 스캔이 실행 중인 상태(<code>scan_start()</code> 호출 후 <code>scan_cleanup()</code> 전)에서는 <code>RESULT_BUSY</code>를 반환하며 동작하지 않습니다.
+반드시 스캔을 종료한 후(<code>scan_stop()</code> → <code>scan_cleanup()</code>) 호출하십시오.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>sample_rate</code></td>
+<td>in</td>
+<td><code>PrismSampleRate_e</code></td>
+<td>샘플링 속도 (<code>SampleRate</code> 열거형 참조)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> — 스캔 실행 중이면 <code>RESULT_BUSY</code> (-2) 반환</p>
+<pre><code class="language-c">/* 사용 예 */
+prismlib_sampleRate_write(dev, PRISM_SR_128K);
+
+PrismSampleRate_e sr;
+prismlib_sampleRate_read(dev, &amp;sr);  // sr == PRISM_SR_128K
+</code></pre>
+<hr />
+<h3 id="57-아날로그-입력-스캔">5.7 아날로그 입력 스캔<a class="headerlink" href="#57-아날로그-입력-스캔" title="Permanent link">&para;</a></h3>
+<h4 id="채널-마스크">채널 마스크<a class="headerlink" href="#채널-마스크" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>채널 조합</th>
+<th><code>channel_mask</code> 값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ch1 만</td>
+<td><code>0x01</code></td>
+</tr>
+<tr>
+<td>ch2 만</td>
+<td><code>0x02</code></td>
+</tr>
+<tr>
+<td>ch3 만</td>
+<td><code>0x04</code></td>
+</tr>
+<tr>
+<td>ch4 만</td>
+<td><code>0x08</code></td>
+</tr>
+<tr>
+<td>ch1 + ch2</td>
+<td><code>0x03</code></td>
+</tr>
+<tr>
+<td>ch1 ~ ch4 전체</td>
+<td><code>0x0F</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="스캔-상태-용어">스캔 상태 용어<a class="headerlink" href="#스캔-상태-용어" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Active</strong></td>
+<td><code>prismlib_scan_start()</code> 호출 후 <code>prismlib_scan_cleanup()</code> 전까지의 상태</td>
+</tr>
+<tr>
+<td><strong>Running</strong></td>
+<td>디바이스가 실제로 데이터를 수집 중인 상태</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="prismlib_scan_start"></a></p>
+<h4 id="prismlib_scan_start"><code>prismlib_scan_start()</code><a class="headerlink" href="#prismlib_scan_start" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_scan_start(prismlib_t *dev, uint8_t channel_mask,
+    uint32_t samples_per_channel, uint32_t options);
+</code></pre>
+<p><strong>기능</strong>: 지정 채널에서 아날로그 입력 스캔을 시작합니다.
+기본적으로 UDP 소켓(포트 7778)을 열고 백그라운드 수신 스레드(pthread)를 시작합니다.
+<code>OPTS_TCP_DATA</code> 옵션을 지정하면 기존 TCP 제어 소켓으로 ADC 데이터를 수신합니다.</p>
+<blockquote>
+<p><strong>USB 연결 모델</strong>: UDP 포트 7778을 통해서만 데이터를 수신할 수 있습니다. <code>OPTS_TCP_DATA</code>는 사용하지 마십시오.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>channel_mask</code></td>
+<td>in</td>
+<td><code>uint8_t</code></td>
+<td>채널 비트 마스크 (0x01 ~ 0x0F)</td>
+</tr>
+<tr>
+<td><code>samples_per_channel</code></td>
+<td>in</td>
+<td><code>uint32_t</code></td>
+<td>유한 모드: 채널당 수집 샘플 수. 연속 모드: 버퍼 크기 힌트</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td>in</td>
+<td><code>uint32_t</code></td>
+<td>옵션 플래그 (Scan Options 참조)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_BUSY</code> = 이미 스캔 중)</p>
+<hr />
+<p><a name="prismlib_scan_stop"></a></p>
+<h4 id="prismlib_scan_stop"><code>prismlib_scan_stop()</code><a class="headerlink" href="#prismlib_scan_stop" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_scan_stop(prismlib_t *dev);
+</code></pre>
+<p><strong>기능</strong>: 진행 중인 스캔을 중지합니다. 버퍼에 수신된 데이터는 <code>prismlib_scan_cleanup()</code> 호출 전까지 유지됩니다.</p>
+<blockquote>
+<p><strong>호출 순서</strong>: 반드시 <code>prismlib_scan_stop()</code> → <code>prismlib_scan_cleanup()</code> 순서로 호출해야 합니다.
+<code>prismlib_scan_cleanup()</code>을 먼저 호출하면 <code>RESULT_BUSY</code>를 반환합니다.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_scan_read"></a></p>
+<h4 id="prismlib_scan_read"><code>prismlib_scan_read()</code><a class="headerlink" href="#prismlib_scan_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_scan_read(prismlib_t *dev, uint16_t *status,
+    int32_t samples_per_channel, double timeout, double *buffer,
+    uint32_t buffer_size_samples, uint32_t *samples_read_per_channel);
+</code></pre>
+<p><strong>기능</strong>: 내부 버퍼에서 스캔 데이터를 읽고 현재 스캔 상태를 반환합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>out</td>
+<td><code>uint16_t*</code></td>
+<td>스캔 상태 플래그</td>
+</tr>
+<tr>
+<td><code>samples_per_channel</code></td>
+<td>in</td>
+<td><code>int32_t</code></td>
+<td>읽을 채널당 샘플 수. <code>-1</code> = 가용한 모든 샘플 즉시 읽기 (timeout 무시)</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>in</td>
+<td><code>double</code></td>
+<td>대기 시간 (초). 음수 = 무한 대기, <code>0</code> = 즉시 반환</td>
+</tr>
+<tr>
+<td><code>buffer</code></td>
+<td>out</td>
+<td><code>double*</code></td>
+<td>사용자 데이터 버퍼</td>
+</tr>
+<tr>
+<td><code>buffer_size_samples</code></td>
+<td>in</td>
+<td><code>uint32_t</code></td>
+<td>버퍼 크기 (double 단위 샘플 수)</td>
+</tr>
+<tr>
+<td><code>samples_read_per_channel</code></td>
+<td>out</td>
+<td><code>uint32_t*</code></td>
+<td>실제 읽은 채널당 샘플 수</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_RESOURCE_UNAVAIL</code> = 스캔 비활성)</p>
+<p><strong>버퍼 데이터 배치</strong> — 채널 인터리브 형식:</p>
+<p><code>buffer_size_samples</code>는 전체 <code>double</code> 수이므로 <code>ch_count × samples_per_channel</code> 이상을 할당해야 합니다.</p>
+<pre><code>buf[s * ch_count + col]   /* s: 샘플 인덱스(0-based), col: 활성 채널 열 인덱스 */
+</code></pre>
+<p><code>col</code>은 <code>channel_mask</code>의 set bit를 오름차순(LSB 우선)으로 번호를 매긴 값입니다:</p>
+<table>
+<thead>
+<tr>
+<th><code>channel_mask</code></th>
+<th><code>ch_count</code></th>
+<th><code>col 0</code></th>
+<th><code>col 1</code></th>
+<th><code>col 2</code></th>
+<th><code>col 3</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0F</code></td>
+<td>4</td>
+<td>물리 ch1</td>
+<td>물리 ch2</td>
+<td>물리 ch3</td>
+<td>물리 ch4</td>
+</tr>
+<tr>
+<td><code>0x01</code></td>
+<td>1</td>
+<td>물리 ch1</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>0x05</code></td>
+<td>2</td>
+<td>물리 ch1</td>
+<td>물리 ch3</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>0x0A</code></td>
+<td>2</td>
+<td>물리 ch2</td>
+<td>물리 ch4</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-c">/* 예: channel_mask=0x05 (ch1+ch3), 1000샘플 */
+int      ch_count = prismlib_scan_ch_count(dev);        /* = 2 */
+double  *buf      = malloc(ch_count * 1000 * sizeof(double));
+uint16_t status;
+uint32_t n_read;
+
+prismlib_scan_read(dev, &amp;status, 1000, 1.0, buf, ch_count * 1000, &amp;n_read);
+
+for (uint32_t s = 0; s &lt; n_read; s++) {
+    double ch1_val = buf[s * ch_count + 0];   /* 물리 ch1 */
+    double ch3_val = buf[s * ch_count + 1];   /* 물리 ch3 */
+}
+</code></pre>
+<hr />
+<p><a name="prismlib_scan_status"></a></p>
+<h4 id="prismlib_scan_status"><code>prismlib_scan_status()</code><a class="headerlink" href="#prismlib_scan_status" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_scan_status(prismlib_t *dev, uint16_t *status, uint32_t *samples_per_channel);
+</code></pre>
+<p><strong>기능</strong>: 스캔 상태와 읽기 가능한 샘플 수를 반환합니다 (데이터를 읽지 않음).</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>out</td>
+<td><code>uint16_t*</code></td>
+<td>스캔 상태 플래그</td>
+</tr>
+<tr>
+<td><code>samples_per_channel</code></td>
+<td>out</td>
+<td><code>uint32_t*</code></td>
+<td>내부 버퍼의 채널당 읽기 가능 샘플 수</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_RESOURCE_UNAVAIL</code> = 스캔 미시작)</p>
+<hr />
+<p><a name="prismlib_scan_cleanup"></a></p>
+<h4 id="prismlib_scan_cleanup"><code>prismlib_scan_cleanup()</code><a class="headerlink" href="#prismlib_scan_cleanup" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_scan_cleanup(prismlib_t *dev);
+</code></pre>
+<p><strong>기능</strong>: 스캔 완료 후 내부 리소스(버퍼, 스레드 등)를 해제합니다.
+이 함수 호출 후에만 새 스캔을 시작할 수 있습니다.</p>
+<blockquote>
+<p><strong>제약</strong>: 반드시 <code>prismlib_scan_stop()</code> 이후에 호출해야 합니다.
+스캔이 실행 중인 상태에서 호출하면 <code>RESULT_BUSY</code>를 반환합니다.</p>
+</blockquote>
+<pre><code class="language-c">/* 올바른 순서 */
+prismlib_scan_stop(dev);    /* 스캔 중지 신호 전송 → 스레드 종료 대기 */
+prismlib_scan_cleanup(dev); /* 리소스 해제 */
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_BUSY</code> = 스캔 실행 중, <code>prismlib_scan_stop()</code> 미호출)</p>
+<hr />
+<p><a name="prismlib_scan_ch_count"></a></p>
+<h4 id="prismlib_scan_ch_count"><code>prismlib_scan_ch_count()</code><a class="headerlink" href="#prismlib_scan_ch_count" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_scan_ch_count(prismlib_t *dev);
+</code></pre>
+<p><strong>기능</strong>: 현재 활성 스캔의 채널 수를 반환합니다. 스캔이 없으면 0을 반환합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: 채널 수 (0 ~ 4)</p>
+<hr />
+<p><a name="prismlib_scan_buf_size"></a></p>
+<h4 id="prismlib_scan_buf_size"><code>prismlib_scan_buf_size()</code><a class="headerlink" href="#prismlib_scan_buf_size" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_scan_buf_size(prismlib_t *dev, uint32_t *buffer_size_samples);
+</code></pre>
+<p><strong>기능</strong>: 내부 스캔 버퍼 크기를 채널당 샘플 수로 반환합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>buffer_size_samples</code></td>
+<td>out</td>
+<td><code>uint32_t*</code></td>
+<td>버퍼 크기 (채널당 샘플 수)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_RESOURCE_UNAVAIL</code> = 스캔 비활성)</p>
+<hr />
+<h3 id="58-led-제어">5.8 LED 제어<a class="headerlink" href="#58-led-제어" title="Permanent link">&para;</a></h3>
+<p><a name="prismlib_led_write"></a></p>
+<h4 id="prismlib_led_write"><code>prismlib_led_write()</code><a class="headerlink" href="#prismlib_led_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_led_write(prismlib_t *dev, int led_id, int state);
+</code></pre>
+<p><strong>기능</strong>: GPIO LED (PWR / ERR / ALM) 를 On/Off 합니다.
+<code>prismlib_open()</code> 호출 후 gpiod 라인 요청이 완료된 상태에서만 유효합니다.
+gpiod 라이브러리 없이 빌드된 환경에서는 아무 동작도 하지 않습니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>led_id</code></td>
+<td>in</td>
+<td><code>int</code></td>
+<td>LED 식별자 (<code>PRISM_LED_PWR</code>, <code>PRISM_LED_ERR</code>, <code>PRISM_LED_ALARM</code>)</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>in</td>
+<td><code>int</code></td>
+<td><code>1</code> = ON, <code>0</code> = OFF</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<hr />
+<p><a name="prismlib_run_led_kernel"></a></p>
+<h4 id="prismlib_run_led_kernel"><code>prismlib_run_led_kernel()</code><a class="headerlink" href="#prismlib_run_led_kernel" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_run_led_kernel(prismlib_t *dev, int enable);
+</code></pre>
+<p><strong>기능</strong>: RUN LED (<code>/sys/class/leds/ACT/</code>) 의 커널 제어를 연결하거나 해제합니다.</p>
+<table>
+<thead>
+<tr>
+<th><code>enable</code> 값</th>
+<th>동작</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>현재 커널 trigger를 저장하고 <code>none</code>으로 전환 → <code>prismlib_run_led_write()</code> 로 수동 제어 가능</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>저장된 원래 trigger를 복원하여 커널 제어 재개</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>enable</code></td>
+<td>in</td>
+<td><code>int</code></td>
+<td><code>0</code> = 커널 제어 해제, <code>1</code> = 커널 제어 복원</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code></p>
+<blockquote>
+<p><code>prismlib_close()</code> 호출 시 커널 제어가 해제된 상태라면 자동으로 원래 trigger가 복원됩니다.</p>
+<p><strong>권한</strong>: <code>/sys/class/leds/ACT/trigger</code> 쓰기에 <strong>root 권한</strong> 이 필요합니다.</p>
+</blockquote>
+<hr />
+<p><a name="prismlib_run_led_write"></a></p>
+<h4 id="prismlib_run_led_write"><code>prismlib_run_led_write()</code><a class="headerlink" href="#prismlib_run_led_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">int prismlib_run_led_write(prismlib_t *dev, int state);
+</code></pre>
+<p><strong>기능</strong>: RUN LED를 수동으로 On/Off 합니다.
+<code>prismlib_run_led_kernel(dev, 0)</code> 을 먼저 호출하여 커널 제어를 해제한 후에만 유효합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>방향</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code></td>
+<td>in</td>
+<td><code>prismlib_t*</code></td>
+<td>디바이스 핸들</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>in</td>
+<td><code>int</code></td>
+<td><code>1</code> = ON, <code>0</code> = OFF</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>ResultCode</code> (<code>RESULT_RESOURCE_UNAVAIL</code> = <code>prismlib_run_led_kernel(dev, 0)</code> 미호출 시)</p>
+<blockquote>
+<p><strong>권한</strong>: <code>/sys/class/leds/ACT/brightness</code> 쓰기에 <strong>root 권한</strong> 이 필요합니다.</p>
+</blockquote>
+<hr />
+<h4 id="led-사용-예제">LED 사용 예제<a class="headerlink" href="#led-사용-예제" title="Permanent link">&para;</a></h4>
+<pre><code class="language-c">#include &quot;prismlib.h&quot;
+
+prismlib_t *dev = prismlib_open(&quot;192.168.7.1&quot;, 7777);
+
+/* GPIO LED 제어 (일반 사용자 권한으로 가능) */
+prismlib_led_write(dev, PRISM_LED_ERR,   1);  /* 오류 LED 켜기 */
+prismlib_led_write(dev, PRISM_LED_ALARM, 1);  /* 알람 LED 켜기 */
+prismlib_led_write(dev, PRISM_LED_PWR,   0);  /* 전원 LED 끄기 */
+
+/* RUN LED 수동 제어 (root 권한 필요) */
+prismlib_run_led_kernel(dev, 0);   /* 커널 제어 해제 */
+prismlib_run_led_write(dev, 1);    /* RUN LED 켜기 */
+prismlib_run_led_write(dev, 0);    /* RUN LED 끄기 */
+prismlib_run_led_kernel(dev, 1);   /* 커널 제어 복원 */
+
+prismlib_close(dev);
+</code></pre>
+<hr />
+<h2 id="6-python-api">6. Python API<a class="headerlink" href="#6-python-api" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">from prismlib import prismlib, prismlibError, ScanOptions, ScanStatus
+</code></pre>
+<p>Python API는 <code>prismlib</code> 클래스 인스턴스를 통해 사용합니다.
+IP와 포트는 생성자에서 지정하며, 오류 발생 시 <code>ResultCode</code> 대신 <code>prismlibError</code> 예외가 발생합니다.</p>
+<pre><code class="language-python">class prismlibError(Exception):
+    &quot;&quot;&quot;PRISM 장치 오류. .result_code 속성으로 ResultCode 값 확인 가능.&quot;&quot;&quot;
+    result_code: int
+    message: str
+</code></pre>
+<h3 id="61-메서드-목록">6.1 메서드 목록<a class="headerlink" href="#61-메서드-목록" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>메서드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#prism-open"><code>prismlib.open()</code></a></td>
+<td>디바이스 연결 열기</td>
+</tr>
+<tr>
+<td><a href="#prism-is_open"><code>prismlib.is_open()</code></a></td>
+<td>연결 상태 확인</td>
+</tr>
+<tr>
+<td><a href="#prism-close"><code>prismlib.close()</code></a></td>
+<td>디바이스 연결 닫기</td>
+</tr>
+<tr>
+<td><a href="#prism-info"><code>prismlib.info()</code></a></td>
+<td>디바이스 상수 정보 조회</td>
+</tr>
+<tr>
+<td><a href="#prism-fw_version"><code>prismlib.fw_version()</code></a></td>
+<td>펌웨어 버전 읽기</td>
+</tr>
+<tr>
+<td><a href="#prism-serial"><code>prismlib.serial()</code></a></td>
+<td>시리얼 번호 읽기</td>
+</tr>
+<tr>
+<td><a href="#prism-cal_date"><code>prismlib.cal_date()</code></a></td>
+<td>캘리브레이션 날짜 읽기</td>
+</tr>
+<tr>
+<td><a href="#prism-cal_read"><code>prismlib.cal_read()</code></a></td>
+<td>캘리브레이션 계수 읽기 (메모리, 장치 통신 없음)</td>
+</tr>
+<tr>
+<td><a href="#prism-cal_write"><code>prismlib.cal_write()</code></a></td>
+<td>캘리브레이션 계수 세션 내 변경 (<strong>로컬 전용</strong>)</td>
+</tr>
+<tr>
+<td><a href="#prism-iepe_read"><code>prismlib.iepe_read()</code></a></td>
+<td>IEPE 전원 설정 읽기</td>
+</tr>
+<tr>
+<td><a href="#prism-iepe_write"><code>prismlib.iepe_write()</code></a></td>
+<td>IEPE 전원 설정 변경</td>
+</tr>
+<tr>
+<td><a href="#prism-iepe_diag"><code>prismlib.iepe_diag()</code></a></td>
+<td>IEPE 채널별 고장 진단</td>
+</tr>
+<tr>
+<td><a href="#prism-sens_read"><code>prismlib.sens_read()</code></a></td>
+<td>센서 감도 읽기 (메모리, 장치 통신 없음)</td>
+</tr>
+<tr>
+<td><a href="#prism-sens_write"><code>prismlib.sens_write()</code></a></td>
+<td>센서 감도 세션 내 변경 (<strong>로컬 전용</strong>)</td>
+</tr>
+<tr>
+<td><a href="#prism-sampleRate_read"><code>prismlib.sampleRate_read()</code></a></td>
+<td>샘플링 속도 읽기</td>
+</tr>
+<tr>
+<td><a href="#prism-sampleRate_write"><code>prismlib.sampleRate_write()</code></a></td>
+<td>샘플링 속도 설정</td>
+</tr>
+<tr>
+<td><a href="#prism-scan_start"><code>prismlib.scan_start()</code></a></td>
+<td>아날로그 입력 스캔 시작</td>
+</tr>
+<tr>
+<td><a href="#prism-scan_stop"><code>prismlib.scan_stop()</code></a></td>
+<td>스캔 중지</td>
+</tr>
+<tr>
+<td><a href="#prism-scan_read"><code>prismlib.scan_read()</code></a></td>
+<td>스캔 데이터 읽기 (Python list)</td>
+</tr>
+<tr>
+<td><a href="#prism-scan_read_numpy"><code>prismlib.scan_read_numpy()</code></a></td>
+<td>스캔 데이터 읽기 (numpy ndarray)</td>
+</tr>
+<tr>
+<td><a href="#prism-scan_status"><code>prismlib.scan_status()</code></a></td>
+<td>스캔 상태 확인</td>
+</tr>
+<tr>
+<td><a href="#prism-scan_cleanup"><code>prismlib.scan_cleanup()</code></a></td>
+<td>스캔 리소스 해제</td>
+</tr>
+<tr>
+<td><a href="#prism-scan_ch_count"><code>prismlib.scan_ch_count()</code></a></td>
+<td>활성 채널 수 반환</td>
+</tr>
+<tr>
+<td><a href="#prism-scan_buf_size"><code>prismlib.scan_buf_size()</code></a></td>
+<td>내부 버퍼 크기 반환</td>
+</tr>
+<tr>
+<td><a href="#prism-led_write"><code>prismlib.led_write()</code></a></td>
+<td>상태 LED On/Off (PWR / ERR / ALM)</td>
+</tr>
+<tr>
+<td><a href="#prism-run_led_kernel"><code>prismlib.run_led_kernel()</code></a></td>
+<td>RUN LED 커널 제어 연결/해제</td>
+</tr>
+<tr>
+<td><a href="#prism-run_led_write"><code>prismlib.run_led_write()</code></a></td>
+<td>RUN LED 수동 On/Off</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="62-디바이스-관리">6.2 디바이스 관리<a class="headerlink" href="#62-디바이스-관리" title="Permanent link">&para;</a></h3>
+<p><a name="prism-open"></a></p>
+<h4 id="prismlib__init__--prismlibopen"><code>prismlib.__init__()</code> / <code>prismlib.open()</code><a class="headerlink" href="#prismlib__init__--prismlibopen" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def __init__(self, ip: str, port: int = 7777) -&gt; None:
+def open(self) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 생성자에서 IP/포트를 지정하고, <code>open()</code>으로 연결 및 리소스를 초기화합니다.
+연결 직후 디바이스 EEPROM에서 모든 채널의 캘리브레이션 계수를 자동으로 로드합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td><code>str</code></td>
+<td>장치 IP 주소 (예: <code>"192.168.7.1"</code>)</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td><code>int</code></td>
+<td>TCP 포트 번호, 기본값 <code>7777</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-is_open"></a></p>
+<h4 id="prismlibis_open"><code>prismlib.is_open()</code><a class="headerlink" href="#prismlibis_open" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def is_open(self) -&gt; bool:
+</code></pre>
+<p><strong>기능</strong>: 디바이스 연결 상태를 반환합니다.</p>
+<p><strong>반환값</strong>: <code>True</code> = 연결됨, <code>False</code> = 연결 안 됨</p>
+<hr />
+<p><a name="prism-close"></a></p>
+<h4 id="prismlibclose"><code>prismlib.close()</code><a class="headerlink" href="#prismlibclose" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def close(self) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 연결을 닫고 리소스를 해제합니다.</p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-info"></a></p>
+<h4 id="prismlibinfo"><code>prismlib.info()</code><a class="headerlink" href="#prismlibinfo" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def info(self) -&gt; dict:
+</code></pre>
+<p><strong>기능</strong>: 디바이스 하드웨어 상수 정보를 딕셔너리로 반환합니다.</p>
+<p><strong>반환값</strong>: <code>dict</code> — 키: <code>num_ai_channels</code>, <code>ai_min_code</code>, <code>ai_max_code</code>, <code>ai_min_voltage</code>, <code>ai_max_voltage</code>, <code>ai_min_range</code>, <code>ai_max_range</code></p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-fw_version"></a></p>
+<h4 id="prismlibfw_version"><code>prismlib.fw_version()</code><a class="headerlink" href="#prismlibfw_version" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def fw_version(self) -&gt; str:
+</code></pre>
+<p><strong>기능</strong>: 펌웨어 버전 문자열을 반환합니다 (예: <code>"1.0.0"</code>).</p>
+<p><strong>반환값</strong>: <code>str</code></p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-serial"></a></p>
+<h4 id="prismlibserial"><code>prismlib.serial()</code><a class="headerlink" href="#prismlibserial" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def serial(self) -&gt; str:
+</code></pre>
+<p><strong>기능</strong>: 시리얼 번호 문자열을 반환합니다.</p>
+<p><strong>반환값</strong>: <code>str</code></p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<h3 id="63-캘리브레이션">6.3 캘리브레이션<a class="headerlink" href="#63-캘리브레이션" title="Permanent link">&para;</a></h3>
+<p><a name="prism-cal_date"></a></p>
+<h4 id="prismlibcal_date"><code>prismlib.cal_date()</code><a class="headerlink" href="#prismlibcal_date" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def cal_date(self) -&gt; str:
+</code></pre>
+<p><strong>기능</strong>: 캘리브레이션 날짜 문자열을 반환합니다 (형식: <code>"YYYY-MM-DD"</code>).</p>
+<p><strong>반환값</strong>: <code>str</code></p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-cal_read"></a></p>
+<h4 id="prismlibcal_read"><code>prismlib.cal_read()</code><a class="headerlink" href="#prismlibcal_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def cal_read(self, channel: int) -&gt; tuple[float, float]:
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 현재 캘리브레이션 계수를 반환합니다.
+<strong>장치 통신 없음</strong> — 라이브러리 메모리에서 즉시 반환합니다.</p>
+<ul>
+<li><code>open()</code> 직후: 장치 Flash(공장 cal)에서 로드된 값</li>
+<li><code>cal_write()</code> 호출 후: 사용자가 변경한 값</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>channel</code></td>
+<td><code>int</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>(slope: float, offset: float)</code> 튜플</p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-cal_write"></a></p>
+<h4 id="prismlibcal_write"><code>prismlib.cal_write()</code><a class="headerlink" href="#prismlibcal_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def cal_write(self, channel: int, slope: float, offset: float) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 캘리브레이션 계수를 세션 내에서 변경합니다.
+<strong>로컬 전용</strong> — 라이브러리 메모리만 업데이트합니다. <code>close()</code> 후 재연결하면 공장 값으로 복원됩니다.</p>
+<ul>
+<li>호출 즉시 <code>cal_read()</code>에 반영됩니다.</li>
+<li>다음 <code>scan_start()</code> 시점부터 스캔 변환에 적용됩니다.</li>
+<li><strong>스캔 실행 중 호출하면 <code>prismlibError(RESULT_BUSY)</code>가 발생합니다.</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>channel</code></td>
+<td><code>int</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>slope</code></td>
+<td><code>float</code></td>
+<td>게인 보정 배율. 공장 초기값 = <code>1.0</code></td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td><code>float</code></td>
+<td>제로 오프셋 보정값. 공장 초기값 = <code>0.0</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>예외</strong>: <code>prismlibError</code> (<code>RESULT_BUSY</code> = 스캔 중)</p>
+<pre><code class="language-python"># 사용 예
+dev.cal_write(0, 1.23456, 0.001)
+s, o = dev.cal_read(0)   # 즉시 반영 확인
+# 이후 scan_start() 시 변경된 cal 값이 적용됨
+</code></pre>
+<hr />
+<h3 id="64-iepe-설정">6.4 IEPE 설정<a class="headerlink" href="#64-iepe-설정" title="Permanent link">&para;</a></h3>
+<p><a name="prism-iepe_read"></a></p>
+<h4 id="prismlibiepe_read"><code>prismlib.iepe_read()</code><a class="headerlink" href="#prismlibiepe_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def iepe_read(self, channel: int) -&gt; bool:
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 IEPE 전원 상태를 읽습니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>channel</code></td>
+<td><code>int</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>True</code> = ON, <code>False</code> = OFF</p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-iepe_write"></a></p>
+<h4 id="prismlibiepe_write"><code>prismlib.iepe_write()</code><a class="headerlink" href="#prismlibiepe_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def iepe_write(self, channel: int, enable: bool) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 IEPE 전원을 설정합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>channel</code></td>
+<td><code>int</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>enable</code></td>
+<td><code>bool</code></td>
+<td><code>True</code> = ON, <code>False</code> = OFF</td>
+</tr>
+</tbody>
+</table>
+<p><strong>예외</strong>: <code>prismlibError</code> (스캔 중 호출 시 <code>RESULT_BUSY</code>)</p>
+<blockquote>
+<p><strong>주의</strong>: IEPE 전원을 켠 직후에는 센서 바이어스 전류가 안정화되기까지 시간이 필요합니다.
+<code>enable=True</code> 설정 후 <strong>500 ms ~ 2초 대기</strong> 한 뒤 스캔 및 <code>iepe_diag()</code>를 호출해야
+정상적인 데이터와 진단 결과를 얻을 수 있습니다.</p>
+</blockquote>
+<hr />
+<p><a name="prism-iepe_diag"></a></p>
+<h4 id="prismlibiepe_diag"><code>prismlib.iepe_diag()</code><a class="headerlink" href="#prismlibiepe_diag" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def iepe_diag(self) -&gt; list[bool]:
+</code></pre>
+<p><strong>기능</strong>: 전체 4채널의 IEPE 고장 상태를 한 번에 조회합니다.
+센서 오픈, 과전류, 연결 불량 등의 하드웨어 이상 여부를 채널별로 반환합니다.</p>
+<p><strong>반환값</strong>: <code>[ch1: bool, ch2: bool, ch3: bool, ch4: bool]</code> — <code>True</code> = 고장, <code>False</code> = 정상</p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<pre><code class="language-python">fault = prism.iepe_diag()
+for ch, is_fault in enumerate(fault):
+    print(f&quot;ch{ch}: {'고장' if is_fault else '정상'}&quot;)
+</code></pre>
+<blockquote>
+<p><strong>C 라이브러리</strong>: 해당 없음 (Python 전용 API)</p>
+</blockquote>
+<hr />
+<h3 id="65-센서-감도">6.5 센서 감도<a class="headerlink" href="#65-센서-감도" title="Permanent link">&para;</a></h3>
+<p><a name="prism-sens_read"></a></p>
+<h4 id="prismlibsens_read"><code>prismlib.sens_read()</code><a class="headerlink" href="#prismlibsens_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def sens_read(self, channel: int) -&gt; float:
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 현재 감도 설정값을 반환합니다. <strong>로컬 전용</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>channel</code></td>
+<td><code>int</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>float</code> — 감도 (mV / 물리단위)</p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-sens_write"></a></p>
+<h4 id="prismlibsens_write"><code>prismlib.sens_write()</code><a class="headerlink" href="#prismlibsens_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def sens_write(self, channel: int, value: float) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 지정 채널의 센서 감도를 세션 내에서 설정합니다. 센서 데이터시트의 감도 스펙(mV/물리단위)을 그대로 입력합니다.
+<strong>로컬 전용</strong> — 라이브러리 메모리에 저장됩니다. <code>close()</code> 후 재연결하면 기본값(1000 mV/unit)으로 복원됩니다.</p>
+<ul>
+<li>다음 <code>scan_start()</code> 시점부터 스캔 변환에 적용됩니다.</li>
+<li><strong>스캔 실행 중 호출하면 <code>prismlibError(RESULT_BUSY)</code>가 발생합니다.</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>channel</code></td>
+<td><code>int</code></td>
+<td>채널 번호 (0 ~ 3)</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td><code>float</code></td>
+<td>센서 감도 (mV / 물리단위). 기본값 = <code>1000</code>. 0 이하는 예외 발생</td>
+</tr>
+</tbody>
+</table>
+<p><strong>예외</strong>: <code>prismlibError</code> (<code>RESULT_BUSY</code> = 스캔 중, <code>RESULT_BAD_PARAMETER</code> = 0 이하 값)</p>
+<pre><code class="language-python"># 사용 예
+dev.sens_write(0, 100.0)    # 채널 0: 100 mV/g 가속도계
+dev.sens_write(1, 50.0)     # 채널 1: 50 mV/Pa 음향 센서
+</code></pre>
+<hr />
+<h3 id="66-샘플링-속도-설정">6.6 샘플링 속도 설정<a class="headerlink" href="#66-샘플링-속도-설정" title="Permanent link">&para;</a></h3>
+<p><a name="prism-sampleRate_read"></a></p>
+<h4 id="prismlibsamplerate_read"><code>prismlib.sampleRate_read()</code><a class="headerlink" href="#prismlibsamplerate_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def sampleRate_read(self) -&gt; int:
+</code></pre>
+<p><strong>기능</strong>: 현재 설정된 채널당 샘플링 속도를 반환합니다.</p>
+<p><strong>반환값</strong>: <code>int</code> — <code>SampleRate.SR_xxx</code> 상수와 비교 가능한 정수 (0 ~ 4)</p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-sampleRate_write"></a></p>
+<h4 id="prismlibsamplerate_write"><code>prismlib.sampleRate_write()</code><a class="headerlink" href="#prismlibsamplerate_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def sampleRate_write(self, sample_rate: int) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 채널당 샘플링 속도를 설정합니다. 기본값: <strong><code>SampleRate.SR_64K</code></strong></p>
+<blockquote>
+<p><strong>주의</strong>: 스캔이 실행 중인 상태(<code>scan_start()</code> 호출 후 <code>scan_cleanup()</code> 전)에서는 <code>prismlibError</code> (BUSY)가 발생하며 동작하지 않습니다.
+반드시 스캔을 종료한 후(<code>scan_stop()</code> → <code>scan_cleanup()</code>) 호출하십시오.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sample_rate</code></td>
+<td><code>SampleRate</code></td>
+<td>샘플링 속도 (<code>SampleRate</code> 열거형 참조)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>예외</strong>: <code>prismlibError</code> — 스캔 실행 중이면 BUSY 예외 발생</p>
+<pre><code class="language-python"># 사용 예
+from prismlib import prismlib, SampleRate
+
+dev.sampleRate_write(SampleRate.SR_128K)
+sr = dev.sampleRate_read()   # SampleRate.SR_128K
+</code></pre>
+<hr />
+<h3 id="67-아날로그-입력-스캔">6.7 아날로그 입력 스캔<a class="headerlink" href="#67-아날로그-입력-스캔" title="Permanent link">&para;</a></h3>
+<p><a name="prism-scan_start"></a></p>
+<h4 id="prismlibscan_start"><code>prismlib.scan_start()</code><a class="headerlink" href="#prismlibscan_start" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def scan_start(self, channel_mask: int,
+               samples_per_channel: int, options: int) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 지정 채널에서 아날로그 입력 스캔을 시작합니다.
+기본적으로 UDP 소켓(포트 7778)을 열고 백그라운드 수신 스레드를 시작합니다.
+<code>ScanOptions.TCP_DATA</code> 옵션을 지정하면 기존 TCP 제어 소켓으로 ADC 데이터를 수신합니다.</p>
+<blockquote>
+<p><strong>USB 연결 모델</strong>: UDP 포트 7778을 통해서만 데이터를 수신할 수 있습니다. <code>ScanOptions.TCP_DATA</code>는 사용하지 마십시오.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>channel_mask</code></td>
+<td><code>int</code></td>
+<td>채널 비트 마스크 (0x01 ~ 0x0F)</td>
+</tr>
+<tr>
+<td><code>samples_per_channel</code></td>
+<td><code>int</code></td>
+<td>유한 모드: 채널당 수집 샘플 수. 연속 모드: 버퍼 크기 힌트</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td><code>int</code></td>
+<td>옵션 플래그 (<code>ScanOptions</code> 참조)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>예외</strong>: <code>prismlibError</code> (<code>RESULT_BUSY</code> = 이미 스캔 중)</p>
+<hr />
+<p><a name="prism-scan_stop"></a></p>
+<h4 id="prismlibscan_stop"><code>prismlib.scan_stop()</code><a class="headerlink" href="#prismlibscan_stop" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def scan_stop(self) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 진행 중인 스캔을 중지합니다.</p>
+<blockquote>
+<p><strong>호출 순서</strong>: 반드시 <code>scan_stop()</code> → <code>scan_cleanup()</code> 순서로 호출해야 합니다.
+<code>scan_cleanup()</code>을 먼저 호출하면 <code>RESULT_BUSY</code> 코드로 <code>prismlibError</code>가 발생합니다.</p>
+</blockquote>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-scan_read"></a></p>
+<h4 id="prismlibscan_read"><code>prismlib.scan_read()</code><a class="headerlink" href="#prismlibscan_read" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def scan_read(self, samples_per_channel: int,
+              timeout: float) -&gt; tuple[list[float], int]:
+</code></pre>
+<p><strong>기능</strong>: 내부 버퍼에서 스캔 데이터를 읽고 현재 상태를 반환합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>samples_per_channel</code></td>
+<td><code>int</code></td>
+<td>읽을 채널당 샘플 수. <code>-1</code> = 가용한 모든 샘플 즉시 읽기</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td><code>float</code></td>
+<td>대기 시간 (초). 음수 = 무한 대기, <code>0</code> = 즉시 반환</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>(data: list[float], status: int)</code> 튜플
+- <code>data</code>: 채널 인터리브 형식, 길이 = <code>ch_count × samples_read</code>
+- <code>status</code>: 스캔 상태 플래그 (<code>ScanStatus</code> 참조)</p>
+<p><code>data[s * ch_count + col]</code> 로 접근하며, <code>col</code>은 <code>channel_mask</code>의 set bit 오름차순 인덱스입니다.</p>
+<pre><code class="language-python"># channel_mask=0x05 (ch1+ch3), ch_count=2
+data, status = prism.scan_read(1000, 1.0)
+n_ch = prism.scan_ch_count()   # = 2
+
+ch1 = data[0::n_ch]   # 인덱스 0, 2, 4, ... → 물리 ch1
+ch3 = data[1::n_ch]   # 인덱스 1, 3, 5, ... → 물리 ch3
+</code></pre>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-scan_read_numpy"></a></p>
+<h4 id="prismlibscan_read_numpy"><code>prismlib.scan_read_numpy()</code><a class="headerlink" href="#prismlibscan_read_numpy" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def scan_read_numpy(self, samples_per_channel: int,
+                    timeout: float) -&gt; tuple[&quot;numpy.ndarray&quot;, int]:
+</code></pre>
+<p><strong>기능</strong>: <code>scan_read()</code>와 동일하지만 데이터를 <code>numpy.ndarray</code>로 반환합니다. numpy/scipy 기반 신호 처리에 바로 적용할 수 있습니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>samples_per_channel</code></td>
+<td><code>int</code></td>
+<td>읽을 채널당 샘플 수. <code>-1</code> = 가용한 모든 샘플 즉시 읽기</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td><code>float</code></td>
+<td>대기 시간 (초). 음수 = 무한 대기, <code>0</code> = 즉시 반환</td>
+</tr>
+</tbody>
+</table>
+<p><strong>반환값</strong>: <code>(data: numpy.ndarray, status: int)</code> 튜플
+- <code>data</code>: shape <code>(samples_read, ch_count)</code>, dtype <code>float64</code>
+  - <code>data[:, col]</code> → <code>col</code>번째 활성 채널 (<code>channel_mask</code>의 set bit 오름차순)
+- <code>status</code>: 스캔 상태 플래그 (<code>ScanStatus</code> 참조)</p>
+<table>
+<thead>
+<tr>
+<th><code>channel_mask</code></th>
+<th><code>data.shape</code></th>
+<th><code>data[:, 0]</code></th>
+<th><code>data[:, 1]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0F</code></td>
+<td><code>(n, 4)</code></td>
+<td>물리 ch1</td>
+<td>물리 ch2</td>
+</tr>
+<tr>
+<td><code>0x01</code></td>
+<td><code>(n, 1)</code></td>
+<td>물리 ch1</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>0x05</code></td>
+<td><code>(n, 2)</code></td>
+<td>물리 ch1</td>
+<td>물리 ch3</td>
+</tr>
+<tr>
+<td><code>0x0A</code></td>
+<td><code>(n, 2)</code></td>
+<td>물리 ch2</td>
+<td>물리 ch4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<pre><code class="language-python">import numpy as np
+
+# channel_mask=0x0F (전체 4채널)
+arr, status = dev.scan_read_numpy(1024, timeout=5.0)
+# arr.shape == (1024, 4)
+fft_ch1 = np.fft.rfft(arr[:, 0])   # ch1 FFT
+
+# channel_mask=0x05 (ch1+ch3만)
+arr, status = dev.scan_read_numpy(1024, timeout=5.0)
+# arr.shape == (1024, 2)
+ch1 = arr[:, 0]   # 물리 ch1
+ch3 = arr[:, 1]   # 물리 ch3
+</code></pre>
+<hr />
+<p><a name="prism-scan_status"></a></p>
+<h4 id="prismlibscan_status"><code>prismlib.scan_status()</code><a class="headerlink" href="#prismlibscan_status" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def scan_status(self) -&gt; tuple[int, int]:
+</code></pre>
+<p><strong>기능</strong>: 스캔 상태와 읽기 가능한 샘플 수를 반환합니다.</p>
+<p><strong>반환값</strong>: <code>(status: int, samples_available: int)</code> 튜플</p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<p><a name="prism-scan_cleanup"></a></p>
+<h4 id="prismlibscan_cleanup"><code>prismlib.scan_cleanup()</code><a class="headerlink" href="#prismlibscan_cleanup" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def scan_cleanup(self) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: 스캔 완료 후 내부 리소스를 해제합니다. 이 메서드 호출 후에만 새 스캔을 시작할 수 있습니다.</p>
+<blockquote>
+<p><strong>제약</strong>: 반드시 <code>scan_stop()</code> 이후에 호출해야 합니다.
+스캔이 실행 중인 상태에서 호출하면 <code>RESULT_BUSY</code> 코드로 <code>prismlibError</code>가 발생합니다.</p>
+</blockquote>
+<pre><code class="language-python"># 올바른 순서
+dev.scan_stop()    # 스캔 중지 신호 전송 → 스레드 종료 대기
+dev.scan_cleanup() # 리소스 해제
+</code></pre>
+<p><strong>예외</strong>: <code>prismlibError</code> (<code>RESULT_BUSY</code> = 스캔 실행 중, <code>scan_stop()</code> 미호출)</p>
+<hr />
+<p><a name="prism-scan_ch_count"></a></p>
+<h4 id="prismlibscan_ch_count"><code>prismlib.scan_ch_count()</code><a class="headerlink" href="#prismlibscan_ch_count" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def scan_ch_count(self) -&gt; int:
+</code></pre>
+<p><strong>기능</strong>: 현재 활성 스캔의 채널 수를 반환합니다.</p>
+<p><strong>반환값</strong>: <code>int</code> (0 ~ 4)</p>
+<hr />
+<p><a name="prism-scan_buf_size"></a></p>
+<h4 id="prismlibscan_buf_size"><code>prismlib.scan_buf_size()</code><a class="headerlink" href="#prismlibscan_buf_size" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def scan_buf_size(self) -&gt; int:
+</code></pre>
+<p><strong>기능</strong>: 내부 스캔 버퍼 크기를 채널당 샘플 수로 반환합니다.</p>
+<p><strong>반환값</strong>: <code>int</code></p>
+<p><strong>예외</strong>: <code>prismlibError</code></p>
+<hr />
+<h3 id="68-led-제어">6.8 LED 제어<a class="headerlink" href="#68-led-제어" title="Permanent link">&para;</a></h3>
+<p><a name="prism-led_write"></a></p>
+<h4 id="prismlibled_write"><code>prismlib.led_write()</code><a class="headerlink" href="#prismlibled_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def led_write(self, led_id: int, state: bool) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: GPIO LED (PWR / ERR / ALM) 를 On/Off 합니다.
+<code>open()</code> 호출 후 gpiod 라인 요청이 완료된 상태에서만 유효합니다.
+gpiod 라이브러리가 없는 환경에서는 아무 동작도 하지 않습니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>led_id</code></td>
+<td><code>int</code></td>
+<td>LED 식별자 (<code>LedId.PWR</code>, <code>LedId.ERR</code>, <code>LedId.ALARM</code>)</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td><code>bool</code></td>
+<td><code>True</code> = ON, <code>False</code> = OFF</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="prism-run_led_kernel"></a></p>
+<h4 id="prismlibrun_led_kernel"><code>prismlib.run_led_kernel()</code><a class="headerlink" href="#prismlibrun_led_kernel" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def run_led_kernel(self, enable: bool) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: RUN LED (<code>/sys/class/leds/ACT/</code>) 의 커널 제어를 연결하거나 해제합니다.</p>
+<table>
+<thead>
+<tr>
+<th><code>enable</code> 값</th>
+<th>동작</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>False</code></td>
+<td>현재 커널 trigger를 저장하고 <code>none</code>으로 전환 → <code>run_led_write()</code> 로 수동 제어 가능</td>
+</tr>
+<tr>
+<td><code>True</code></td>
+<td>저장된 원래 trigger를 복원하여 커널 제어 재개</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enable</code></td>
+<td><code>bool</code></td>
+<td><code>False</code> = 커널 제어 해제, <code>True</code> = 커널 제어 복원</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>close()</code> 호출 시 커널 제어가 해제된 상태라면 자동으로 원래 trigger가 복원됩니다.</p>
+<p><strong>권한</strong>: <code>/sys/class/leds/ACT/trigger</code> 쓰기에 <strong>root 권한</strong> 이 필요합니다. 일반 사용자로 호출하면 OSError가 조용히 무시되어 커널 제어가 해제되지 않습니다.</p>
+</blockquote>
+<hr />
+<p><a name="prism-run_led_write"></a></p>
+<h4 id="prismlibrun_led_write"><code>prismlib.run_led_write()</code><a class="headerlink" href="#prismlibrun_led_write" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def run_led_write(self, state: bool) -&gt; None:
+</code></pre>
+<p><strong>기능</strong>: RUN LED를 수동으로 On/Off 합니다.
+<code>run_led_kernel(False)</code> 를 먼저 호출하여 커널 제어를 해제한 후에만 유효합니다.</p>
+<table>
+<thead>
+<tr>
+<th>파라미터</th>
+<th>타입</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>state</code></td>
+<td><code>bool</code></td>
+<td><code>True</code> = ON, <code>False</code> = OFF</td>
+</tr>
+</tbody>
+</table>
+<p><strong>예외</strong>: <code>prismlibError</code> (<code>RESULT_RESOURCE_UNAVAIL</code>) — <code>run_led_kernel(False)</code> 미호출 시</p>
+<blockquote>
+<p><strong>권한</strong>: <code>/sys/class/leds/ACT/brightness</code> 쓰기에 <strong>root 권한</strong> 이 필요합니다.</p>
+</blockquote>
+<hr />
+<h4 id="led-사용-예제_1">LED 사용 예제<a class="headerlink" href="#led-사용-예제_1" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>참고</strong>: GPIO LED (<code>led_write</code>) 는 일반 사용자 권한으로 사용 가능합니다.
+RUN LED (<code>run_led_kernel</code> / <code>run_led_write</code>) 는 root 권한이 필요합니다 (<code>sudo python3 ...</code>).</p>
+</blockquote>
+<pre><code class="language-python">from prismlib import prismlib, LedId
+
+dev = prismlib(&quot;192.168.7.1&quot;, 7777)
+dev.open()  # GPIO 21(PWR)=ON, GPIO 20(ERR)=OFF, GPIO 16(ALM)=OFF 초기화
+
+# GPIO LED 제어 (일반 사용자 권한으로 가능)
+dev.led_write(LedId.ERR, True)    # 오류 LED 켜기
+dev.led_write(LedId.ALARM, True)  # 알람 LED 켜기
+dev.led_write(LedId.PWR, False)   # 전원 LED 끄기
+
+# RUN LED 수동 제어 (root 권한 필요 — sudo python3 으로 실행)
+dev.run_led_kernel(False)         # 커널 제어 해제 (/sys/class/leds/ACT/trigger 쓰기)
+dev.run_led_write(True)           # RUN LED 켜기
+dev.run_led_write(False)          # RUN LED 끄기
+dev.run_led_kernel(True)          # 커널 제어 복원 (close() 시에도 자동 복원)
+
+dev.close()
+</code></pre>
+<hr />
+<h2 id="7-사용-예제">7. 사용 예제<a class="headerlink" href="#7-사용-예제" title="Permanent link">&para;</a></h2>
+<h3 id="71-기본-유한-스캔-c">7.1 기본 유한 스캔 (C)<a class="headerlink" href="#71-기본-유한-스캔-c" title="Permanent link">&para;</a></h3>
+<pre><code class="language-c">#include &quot;prismlib.h&quot;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(void)
+{
+    uint8_t  channel_mask = 0x0F;   // ch1 ~ ch4 전체
+    uint32_t samples      = 64000;
+    int      num_channels = 4;
+
+    // 1. 디바이스 열기 (EEPROM 캘리브레이션 자동 로드)
+    prismlib_t *dev = prismlib_open(&quot;192.168.7.1&quot;, 7777);
+    if (dev == NULL) {
+        printf(&quot;Open failed\n&quot;);
+        return -1;
+    }
+
+    // 2. 감도 설정 (100 mV/g 가속도계)
+    for (int ch = 0; ch &lt; num_channels; ch++)
+        prismlib_sens_write(dev, ch, 100.0);
+
+    // 3. IEPE 전원 켜기 → 안정화 대기 (500 ms ~ 2초)
+    for (int ch = 0; ch &lt; num_channels; ch++)
+        prismlib_iepe_write(dev, ch, 1);
+    sleep(2);
+
+    // 4. 스캔 시작
+    prismlib_scan_start(dev, channel_mask, samples, OPTS_DEFAULT);
+
+    // 5. 데이터 읽기
+    uint32_t buf_size = samples * num_channels;
+    double  *buffer   = (double *)malloc(buf_size * sizeof(double));
+    uint16_t status;
+    uint32_t samples_read;
+    prismlib_scan_read(dev, &amp;status, samples, 10.0, buffer, buf_size, &amp;samples_read);
+
+    // 6. 데이터 처리
+    for (uint32_t i = 0; i &lt; samples_read; i++) {
+        printf(&quot;ch1: %.4f g  ch2: %.4f g  ch3: %.4f g  ch4: %.4f g\n&quot;,
+               buffer[i * num_channels + 0], buffer[i * num_channels + 1],
+               buffer[i * num_channels + 2], buffer[i * num_channels + 3]);
+    }
+
+    // 7. 정리 (scan 스레드 종료 대기 후 cleanup)
+    uint32_t avail;
+    do { prismlib_scan_status(dev, &amp;status, &amp;avail); } while (status &amp; STATUS_RUNNING);
+    prismlib_scan_cleanup(dev);
+    for (int ch = 0; ch &lt; num_channels; ch++)
+        prismlib_iepe_write(dev, ch, 0);
+    free(buffer);
+    prismlib_close(dev);
+    return 0;
+}
+</code></pre>
+<hr />
+<h3 id="72-연속-스캔-c">7.2 연속 스캔 (C)<a class="headerlink" href="#72-연속-스캔-c" title="Permanent link">&para;</a></h3>
+<pre><code class="language-c">#include &quot;prismlib.h&quot;
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+void process_data(double *buf, int num_channels, uint32_t samples_read) { /* ... */ }
+
+int main(void)
+{
+    prismlib_t *dev = prismlib_open(&quot;192.168.7.1&quot;, 7777);
+    if (dev == NULL) return -1;
+
+    for (int ch = 0; ch &lt; 4; ch++)
+        prismlib_sens_write(dev, ch, 100.0);
+
+    // IEPE 전원 켜기 → 안정화 대기 (500 ms ~ 2초)
+    for (int ch = 0; ch &lt; 4; ch++)
+        prismlib_iepe_write(dev, ch, 1);
+    sleep(2);
+
+    // 연속 스캔 시작 (ch1 ~ ch4, 채널당 100,000 샘플 버퍼)
+    prismlib_scan_start(dev, 0x0F, 100000, OPTS_CONTINUOUS);
+
+    uint16_t status = STATUS_RUNNING;
+    double   buffer[4000];  // 채널당 1,000 샘플 × 4채널
+    int      num_channels = prismlib_scan_ch_count(dev);
+
+    while (status &amp; STATUS_RUNNING) {
+        uint32_t samples_read;
+        prismlib_scan_read(dev, &amp;status, 1000, 1.0, buffer, 4000, &amp;samples_read);
+
+        if (status &amp; STATUS_BUFFER_OVERRUN) {
+            printf(&quot;경고: 버퍼 오버런!\n&quot;);
+            break;
+        }
+        process_data(buffer, num_channels, samples_read);
+    }
+
+    // 스캔이 아직 실행 중이면 (Ctrl-C 또는 overrun) 중단 후 종료 대기
+    uint32_t avail;
+    prismlib_scan_status(dev, &amp;status, &amp;avail);
+    if (status &amp; STATUS_RUNNING) {
+        prismlib_scan_stop(dev);
+        do { prismlib_scan_status(dev, &amp;status, &amp;avail); } while (status &amp; STATUS_RUNNING);
+    }
+
+    for (int ch = 0; ch &lt; 4; ch++)
+        prismlib_iepe_write(dev, ch, 0);
+    prismlib_scan_cleanup(dev);
+    prismlib_close(dev);
+    return 0;
+}
+</code></pre>
+<hr />
+<h3 id="73-기본-유한-스캔-python">7.3 기본 유한 스캔 (Python)<a class="headerlink" href="#73-기본-유한-스캔-python" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">import time
+from prismlib import prismlib, ScanOptions, ScanStatus
+
+NUM_CHANNELS = 4
+SAMPLES      = 64000
+
+prism = prismlib(&quot;192.168.7.1&quot;, 7777)
+prism.open()  # EEPROM 캘리브레이션 자동 로드
+
+try:
+    for ch in range(NUM_CHANNELS):
+        prism.sens_write(ch, 100.0)  # 100 mV/g 가속도계
+
+    # IEPE 전원 켜기 → 안정화 대기 (500 ms ~ 2초)
+    for ch in range(NUM_CHANNELS):
+        prism.iepe_write(ch, True)
+    time.sleep(2.0)
+
+    prism.scan_start(0x0F, SAMPLES, ScanOptions.DEFAULT)
+    data, status = prism.scan_read(SAMPLES, timeout=10.0)
+
+    # scan 스레드 종료 대기
+    while prism.scan_status()[0] &amp; ScanStatus.RUNNING:
+        time.sleep(0.005)
+
+    for i in range(len(data) // NUM_CHANNELS):
+        values = data[i * NUM_CHANNELS:(i + 1) * NUM_CHANNELS]
+        print(f&quot;ch1: {values[0]:.4f} g  ch2: {values[1]:.4f} g  &quot;
+              f&quot;ch3: {values[2]:.4f} g  ch4: {values[3]:.4f} g&quot;)
+
+finally:
+    for ch in range(NUM_CHANNELS):
+        prism.iepe_write(ch, False)
+    prism.scan_cleanup()
+    prism.close()
+</code></pre>
+<hr />
+<h3 id="74-연속-스캔-python">7.4 연속 스캔 (Python)<a class="headerlink" href="#74-연속-스캔-python" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">import time
+from prismlib import prismlib, ScanOptions, ScanStatus
+
+def process_data(data, num_channels):
+    pass  # 실시간 데이터 처리
+
+prism = prismlib(&quot;192.168.7.1&quot;, 7777)
+prism.open()
+
+use_iepe = True
+try:
+    for ch in range(4):
+        prism.sens_write(ch, 100.0)
+
+    # IEPE 전원 켜기 → 안정화 대기 (500 ms ~ 2초)
+    for ch in range(4):
+        prism.iepe_write(ch, True)
+    time.sleep(2.0)
+
+    prism.scan_start(0x0F, 100000, ScanOptions.CONTINUOUS)
+    num_channels = prism.scan_ch_count()
+    status = ScanStatus.RUNNING
+
+    while status &amp; ScanStatus.RUNNING:
+        data, status = prism.scan_read(1000, timeout=1.0)
+
+        if status &amp; ScanStatus.BUFFER_OVERRUN:
+            print(&quot;경고: 버퍼 오버런!&quot;)
+            break
+
+        process_data(data, num_channels)
+
+    # 스캔이 아직 실행 중이면 (overrun 등) 중단 후 종료 대기
+    if prism.scan_status()[0] &amp; ScanStatus.RUNNING:
+        prism.scan_stop()
+        while prism.scan_status()[0] &amp; ScanStatus.RUNNING:
+            time.sleep(0.005)
+
+finally:
+    if use_iepe:
+        for ch in range(4):
+            prism.iepe_write(ch, False)
+    prism.scan_cleanup()
+    prism.close()
+</code></pre>
+<hr />
+<h2 id="8-api-빠른-참조-표">8. API 빠른 참조 표<a class="headerlink" href="#8-api-빠른-참조-표" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>카테고리</th>
+<th style="text-align: center;">IDLE</th>
+<th style="text-align: center;">SCANNING</th>
+<th style="text-align: center;">SCAN_STOPPING</th>
+<th>C 함수</th>
+<th>Python 메서드</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>디바이스 열기</td>
+<td>디바이스</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_open()</code></td>
+<td><code>prismlib.open()</code></td>
+</tr>
+<tr>
+<td>연결 확인</td>
+<td>디바이스</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_is_open()</code></td>
+<td><code>prismlib.is_open()</code></td>
+</tr>
+<tr>
+<td>디바이스 닫기</td>
+<td>디바이스</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_close()</code></td>
+<td><code>prismlib.close()</code></td>
+</tr>
+<tr>
+<td>하드웨어 정보</td>
+<td>디바이스</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_info()</code></td>
+<td><code>prismlib.info()</code></td>
+</tr>
+<tr>
+<td>펌웨어 버전</td>
+<td>디바이스</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_fw_version()</code></td>
+<td><code>prismlib.fw_version()</code></td>
+</tr>
+<tr>
+<td>시리얼 번호</td>
+<td>디바이스</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_serial()</code></td>
+<td><code>prismlib.serial()</code></td>
+</tr>
+<tr>
+<td>에러 메시지</td>
+<td>디바이스</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_error_msg()</code></td>
+<td>(예외 메시지 참조)</td>
+</tr>
+<tr>
+<td>캘리브레이션 날짜</td>
+<td>캘리브레이션</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_cal_date()</code></td>
+<td><code>prismlib.cal_date()</code></td>
+</tr>
+<tr>
+<td>캘리브레이션 읽기</td>
+<td>캘리브레이션</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_cal_read()</code></td>
+<td><code>prismlib.cal_read()</code></td>
+</tr>
+<tr>
+<td>캘리브레이션 쓰기</td>
+<td>캘리브레이션</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_cal_write()</code></td>
+<td><code>prismlib.cal_write()</code></td>
+</tr>
+<tr>
+<td>IEPE 읽기</td>
+<td>IEPE</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_iepe_read()</code></td>
+<td><code>prismlib.iepe_read()</code></td>
+</tr>
+<tr>
+<td>IEPE 설정</td>
+<td>IEPE</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_iepe_write()</code></td>
+<td><code>prismlib.iepe_write()</code></td>
+</tr>
+<tr>
+<td>감도 읽기</td>
+<td>감도</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_sens_read()</code></td>
+<td><code>prismlib.sens_read()</code></td>
+</tr>
+<tr>
+<td>감도 설정</td>
+<td>감도</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_sens_write()</code></td>
+<td><code>prismlib.sens_write()</code></td>
+</tr>
+<tr>
+<td>샘플링 속도 읽기</td>
+<td>샘플링 속도</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_sampleRate_read()</code></td>
+<td><code>prismlib.sampleRate_read()</code></td>
+</tr>
+<tr>
+<td>샘플링 속도 설정</td>
+<td>샘플링 속도</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_sampleRate_write()</code></td>
+<td><code>prismlib.sampleRate_write()</code></td>
+</tr>
+<tr>
+<td>스캔 시작</td>
+<td>스캔</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_scan_start()</code></td>
+<td><code>prismlib.scan_start()</code></td>
+</tr>
+<tr>
+<td>스캔 중지</td>
+<td>스캔</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td><code>prismlib_scan_stop()</code></td>
+<td><code>prismlib.scan_stop()</code></td>
+</tr>
+<tr>
+<td>데이터 읽기 (list)</td>
+<td>스캔</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_scan_read()</code></td>
+<td><code>prismlib.scan_read()</code></td>
+</tr>
+<tr>
+<td>데이터 읽기 (numpy)</td>
+<td>스캔</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td>—</td>
+<td><code>prismlib.scan_read_numpy()</code></td>
+</tr>
+<tr>
+<td>스캔 상태</td>
+<td>스캔</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_scan_status()</code></td>
+<td><code>prismlib.scan_status()</code></td>
+</tr>
+<tr>
+<td>스캔 정리</td>
+<td>스캔</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_scan_cleanup()</code></td>
+<td><code>prismlib.scan_cleanup()</code></td>
+</tr>
+<tr>
+<td>채널 수</td>
+<td>스캔</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_scan_ch_count()</code></td>
+<td><code>prismlib.scan_ch_count()</code></td>
+</tr>
+<tr>
+<td>버퍼 크기</td>
+<td>스캔</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_scan_buf_size()</code></td>
+<td><code>prismlib.scan_buf_size()</code></td>
+</tr>
+<tr>
+<td>GPIO LED 제어</td>
+<td>LED</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_led_write()</code></td>
+<td><code>prismlib.led_write()</code></td>
+</tr>
+<tr>
+<td>RUN LED 커널 제어</td>
+<td>LED</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_run_led_kernel()</code></td>
+<td><code>prismlib.run_led_kernel()</code></td>
+</tr>
+<tr>
+<td>RUN LED 수동 제어</td>
+<td>LED</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td><code>prismlib_run_led_write()</code></td>
+<td><code>prismlib.run_led_write()</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>✅</strong> = 호출 가능 &nbsp;|&nbsp; <strong>❌</strong> = 오류 반환 / 예외 발생 (<code>RESULT_BUSY</code> 또는 <code>RESULT_RESOURCE_UNAVAIL</code>)</p>
+<p><strong>로컬 전용</strong> (<code>cal_read</code>, <code>sens_read</code>): 장치 통신 없이 라이브러리 메모리에서 즉시 반환 → 스캔 중에도 ✅
+<strong>스캔 중 금지</strong> (<code>cal_write</code>, <code>sens_write</code>): 스캔 중 호출 시 <code>RESULT_BUSY</code> 반환 → <code>scan_stop()</code> + <code>scan_cleanup()</code> 후 호출</p>
+<p><strong>SCAN_STOPPING</strong>: <code>scan_stop()</code> 호출 후 <code>scan_cleanup()</code> 호출 전까지의 구간</p>
+</blockquote>
+<hr />
+<h2 id="9-변경-이력">9. 변경 이력<a class="headerlink" href="#9-변경-이력" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>버전</th>
+<th>날짜</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1.0</td>
+<td>2026-05-14</td>
+<td>정식 배포 버전</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.top", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

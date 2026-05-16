@@ -12,7 +12,7 @@ echo "Uninstalling PRISM C library..."
 make uninstall
 
 echo "Uninstalling PRISM Python library..."
-pip uninstall -y prism 2>/dev/null || true
+pip uninstall -y prismlib 2>/dev/null || true
 
 echo ""
 echo "PRISM library uninstalled."

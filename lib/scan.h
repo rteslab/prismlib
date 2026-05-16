@@ -5,10 +5,12 @@
 #include <stddef.h>
 #include <pthread.h>
 
-/* Per-device scan context — embedded inside prismc_t */
+/* Per-device scan context — embedded inside prismlib_t */
 typedef struct {
-    /* socket (borrowed from prismc_t, not owned) */
+    /* TCP socket (borrowed from prismlib_t, not owned) — used to send CMD_SCAN_STOP */
     int      sockfd;
+    /* UDP socket (owned) — receives scan data pushed by device on port 7778 */
+    int      udp_fd;
 
     /* scan parameters */
     uint8_t  ch_mask;
@@ -16,7 +18,7 @@ typedef struct {
     uint32_t options;
     uint32_t buf_cap;   /* ring buffer capacity in samples-per-channel */
 
-    /* per-channel scale factors (copied from prismc_t at scan_start) */
+    /* per-channel scale factors (copied from prismlib_t at scan_start) */
     double cal_slope[4];
     double cal_offset[4];
     double sensitivity[4];

@@ -1,6 +1,6 @@
-CC      = gcc
-CFLAGS  = -std=c99 -Wall -Wextra -g -O2 -Iinclude -Ilib -fPIC
-LDFLAGS = -lpthread -lm
+﻿CC      = gcc
+CFLAGS  = -Wall -Wextra -g -O2 -Iinclude -Ilib -fPIC
+LDFLAGS = -lpthread -lm -lgpiod
 
 LIB_DIR  = lib
 INC_DIR  = include
@@ -9,12 +9,13 @@ TEST_DIR = test/c
 OUT_DIR  = /usr/local/lib
 HDR_DIR  = /usr/local/include
 
-LIBRARY  = libprismc.so
+LIBRARY  = libprismlib.so
 
 LIB_SRCS = $(LIB_DIR)/transport.c \
            $(LIB_DIR)/protocol.c  \
            $(LIB_DIR)/scan.c      \
-           $(LIB_DIR)/prismc.c
+           $(LIB_DIR)/led.c       \
+           $(LIB_DIR)/prismlib.c
 
 LIB_OBJS = $(LIB_SRCS:.c=.o)
 
@@ -41,23 +42,23 @@ $(LIBRARY): $(LIB_OBJS)
 examples: lib $(EX_BINS)
 
 $(EX_C_DIR)/%: $(EX_C_DIR)/%.c
-	$(CC) $(CFLAGS) $< -L. -lprismc $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $< -L. -lprismlib $(LDFLAGS) -o $@
 
 # ── Tests ─────────────────────────────────────────────────────────────────────
 test: lib $(TEST_BINS)
 
 $(TEST_DIR)/%: $(TEST_DIR)/%.c
-	$(CC) $(CFLAGS) $< -L. -lprismc $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $< -L. -lprismlib $(LDFLAGS) -o $@
 
 # ── Install / Uninstall (called by install.sh) ────────────────────────────────
 install: lib
 	install -m 755 $(LIBRARY) $(OUT_DIR)
-	install -m 644 $(INC_DIR)/prismc.h $(HDR_DIR)
+	install -m 644 $(INC_DIR)/prismlib.h $(HDR_DIR)
 	ldconfig
 
 uninstall:
 	rm -f $(OUT_DIR)/$(LIBRARY)
-	rm -f $(HDR_DIR)/prismc.h
+	rm -f $(HDR_DIR)/prismlib.h
 	ldconfig
 
 # ── Clean ─────────────────────────────────────────────────────────────────────
