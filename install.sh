@@ -8,18 +8,6 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-echo "Building PRISM C library..."
-make
-
-echo "Building examples..."
-make examples
-
-echo "Installing PRISM C library..."
-make install
-
-echo "Installing numpy (required for ring buffer)..."
-pip install numpy --break-system-packages --root-user-action=ignore
-
 echo "Checking gpiod..."
 if ! command -v gpioset > /dev/null 2>&1; then
     echo "  Installing gpiod tools..."
@@ -39,6 +27,18 @@ if ! python3 -c "import gpiod" > /dev/null 2>&1; then
 else
     echo "  python3-gpiod: OK"
 fi
+
+echo "Building PRISM C library..."
+make
+
+echo "Building examples..."
+make examples
+
+echo "Installing PRISM C library..."
+make install
+
+echo "Installing numpy (required for ring buffer)..."
+pip install numpy --break-system-packages --root-user-action=ignore
 
 echo "Installing PRISM Python library..."
 pip install ./python --break-system-packages --root-user-action=ignore
