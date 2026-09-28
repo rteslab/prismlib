@@ -83,6 +83,40 @@ int led_write(LedCtx_t *ctx, int led_id, int state)
     return RESULT_SUCCESS;
 }
 
+/* Extract the active trigger name (the bracketed entry) from a sysfs "trigger"
+ * attribute, e.g. "none default ... mmc1 [mmc0] rfkill-any ...".
+ * Returns 0 if found, -1 otherwise. */
+static int read_active_trigger(const char *path, char *out, size_t outsz)
+{
+    FILE  *f;
+    int    c, inside = 0;
+    size_t n = 0;
+
+    if (outsz == 0)
+        return -1;
+    out[0] = '\0';
+
+    f = fopen(path, "r");
+    if (!f)
+        return -1;
+
+    while ((c = fgetc(f)) != EOF) {
+        if (c == '[') {
+            inside = 1;
+            n = 0;
+        } else if (c == ']') {
+            if (inside)
+                break;
+        } else if (inside && (n + 1) < outsz) {
+            out[n++] = (char)c;
+        }
+    }
+    fclose(f);
+
+    out[n] = '\0';
+    return (n > 0) ? 0 : -1;
+}
+
 int run_led_kernel(LedCtx_t *ctx, int enable)
 {
     FILE *f;
@@ -91,9 +125,7 @@ int run_led_kernel(LedCtx_t *ctx, int enable)
         if (ctx->act_trigger_orig[0] == '\0')
             return RESULT_SUCCESS;
 
-        /* Write brightness first (while "none" trigger is still active so the
-         * write takes effect), then switch trigger.  mmc0/heartbeat etc. will
-         * inherit this brightness value and the LED resumes its normal state. */
+        /* Restore brightness first, then the trigger. */
         if (ctx->act_brightness_orig[0] != '\0') {
             f = fopen(_RUN_LED_PATH "/brightness", "w");
             if (f) {
@@ -129,26 +161,13 @@ int run_led_kernel(LedCtx_t *ctx, int enable)
                 ctx->act_brightness_orig[--n] = '\0';
         }
 
-        /* Save current trigger (extract from "[name] ..." format) */
-        f = fopen(_RUN_LED_PATH "/trigger", "r");
-        if (!f)
+        /* Save current trigger; fail if it cannot be read. */
+        if (read_active_trigger(_RUN_LED_PATH "/trigger",
+                                ctx->act_trigger_orig,
+                                sizeof(ctx->act_trigger_orig)) != 0) {
+            ctx->act_trigger_orig[0]    = '\0';
+            ctx->act_brightness_orig[0] = '\0';
             return RESULT_RESOURCE_UNAVAIL;
-        char buf[256];
-        size_t n = fread(buf, 1, sizeof(buf) - 1, f);
-        fclose(f);
-        buf[n] = '\0';
-
-        char *start = strchr(buf, '[');
-        char *end   = strchr(buf, ']');
-        if (start && end && end > start) {
-            size_t len = (size_t)(end - start - 1);
-            if (len >= sizeof(ctx->act_trigger_orig))
-                len = sizeof(ctx->act_trigger_orig) - 1;
-            memcpy(ctx->act_trigger_orig, start + 1, len);
-            ctx->act_trigger_orig[len] = '\0';
-        } else {
-            strncpy(ctx->act_trigger_orig, "none",
-                    sizeof(ctx->act_trigger_orig) - 1);
         }
 
         /* Switch to manual control */

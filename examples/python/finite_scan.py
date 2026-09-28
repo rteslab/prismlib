@@ -28,22 +28,21 @@ try:
     for ch in range(NUM_CHANNELS):
         prism.sens_write(ch, 100.0)   # 100 mV/g accelerometer
 
-    ans = input("IEPE를 활성화하시겠습니까? [y/n]: ").strip().lower()
+    ans = input("Enable IEPE? [y/n]: ").strip().lower()
     use_iepe = ans in ("y", "yes")
     if use_iepe:
         for ch in range(NUM_CHANNELS):
             prism.iepe_write(ch, True)
-        print("IEPE 안정화 대기 중 (2초)...", end="", flush=True)
+        print("Waiting for IEPE to settle (2 s)...", end="", flush=True)
         time.sleep(2.0)
-        print(" 완료")
+        print(" done")
 
     prism.scan_start(0x0F, SAMPLES, ScanOptions.DEFAULT)
 
     data, status = prism.scan_read(SAMPLES, timeout=10.0)
 
-    # 유한 스캔 완료 후 수신 스레드가 RUNNING 플래그를 해제할 때까지 대기.
-    # scan_read() 반환 시점과 스레드 ~RUNNING 설정 사이에 race condition이 있으므로
-    # scan_cleanup() 호출 전에 반드시 확인한다.
+    # Wait for the receive thread to clear RUNNING.  scan_read() can return
+    # before the thread clears the flag, so check before scan_cleanup().
     while prism.scan_status()[0] & ScanStatus.RUNNING:
         time.sleep(0.005)
 
@@ -62,7 +61,7 @@ try:
         for i in range(n_sets):
             vals = data[i * NUM_CHANNELS:(i + 1) * NUM_CHANNELS]
             f.write(f"{i}\t" + "\t".join(f"{v:.6f}" for v in vals) + "\n")
-    print(f"저장 완료: {fname}")
+    print(f"Saved: {fname}")
 
 finally:
     prism.scan_cleanup()

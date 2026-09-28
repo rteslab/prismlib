@@ -12,11 +12,47 @@ RESULT_UNDEFINED         = -10
 
 # Sample rate enum (matches PrismSampleRate_e in prismlib.h)
 class SampleRate:
-    SR_64K  = 0
-    SR_128K = 1
-    SR_170K = 2
-    SR_256K = 3
-    SR_512K = 4
+    """Per-channel sample rate.  Value 2 is not supported."""
+    SR_64K  = 0       #  64,000 S/s
+    SR_128K = 1       # 128,000 S/s
+    SR_256K = 3       # 256,000 S/s
+    SR_512K = 4       # 512,000 S/s (max)
+    SR_32K  = 5       #  32,000 S/s
+    SR_16K  = 6       #  16,000 S/s
+    SR_8K   = 7       #   8,000 S/s
+    SR_4K   = 8       #   4,000 S/s
+    SR_2K   = 9       #   2,000 S/s
+    SR_1K   = 10      #   1,000 S/s
+    SR_500  = 11      #     500 S/s (min)
+
+
+#: Indexed by SampleRate: data rate in S/s.  0 marks an unsupported value.
+SR_HZ = [64000, 128000, 0, 256000, 512000,
+         32000, 16000, 8000, 4000, 2000, 1000, 500]
+
+#: Indexed by SampleRate: short display name.  None marks an unsupported value.
+SR_NAME = ["64K", "128K", None, "256K", "512K",
+           "32K", "16K", "8K", "4K", "2K", "1K", "500"]
+
+
+def sr_hz(sample_rate: int) -> int:
+    """Return the data rate in S/s, or 0 if unsupported."""
+    if 0 <= sample_rate < len(SR_HZ):
+        return SR_HZ[sample_rate]
+    return 0
+
+
+def sr_name(sample_rate: int) -> str:
+    """Return the short display name, or '?' if unsupported."""
+    if 0 <= sample_rate < len(SR_NAME) and SR_NAME[sample_rate]:
+        return SR_NAME[sample_rate]
+    return "?"
+
+
+def sr_supported() -> list:
+    """Return supported rates as (enum, hz, name), slowest first."""
+    out = [(i, SR_HZ[i], SR_NAME[i]) for i in range(len(SR_HZ)) if SR_HZ[i] > 0]
+    return sorted(out, key=lambda t: t[1])
 
 # Scan options (OR-combine)
 class ScanOptions:
@@ -30,6 +66,7 @@ class ScanOptions:
 class ScanStatus:
     HW_OVERRUN     = 0x0001
     BUFFER_OVERRUN = 0x0002
+    DATA_LOST      = 0x0004   # UDP data frame(s) never arrived (sticky) - see scan_lost()
     RUNNING        = 0x0008
 
 # Command IDs (wire protocol)

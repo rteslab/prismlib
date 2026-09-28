@@ -36,17 +36,17 @@ int main(int argc, char *argv[])
         prismlib_sens_write(dev, (uint8_t)ch, 100.0);
 
     int use_iepe = 0;
-    printf("IEPE를 활성화하시겠습니까? [y/n]: ");
+    printf("Enable IEPE? [y/n]: ");
     fflush(stdout);
     char ans[8] = {0};
     if (fgets(ans, sizeof(ans), stdin) && (ans[0] == 'y' || ans[0] == 'Y')) {
         use_iepe = 1;
         for (int ch = 0; ch < num_ch; ch++)
             prismlib_iepe_write(dev, (uint8_t)ch, 1);
-        printf("IEPE 안정화 대기 중 (2초)...");
+        printf("Waiting for IEPE to settle (2 s)...");
         fflush(stdout);
         sleep(2);
-        printf(" 완료\n");
+        printf(" done\n");
     }
 
     uint32_t buf_size = samples * (uint32_t)num_ch;
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
             fprintf(fp, "\n");
         }
         fclose(fp);
-        printf("저장 완료: %s\n", fname);
+        printf("Saved: %s\n", fname);
     }
 
     free(buf);

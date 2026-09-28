@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "prismlib"
-version = "1.0.0"
+dynamic = ["version"]              # read from ../include/prismlib.h by setup.py
 description = "PRISM DAQ library for Raspberry Pi CM4"
 requires-python = ">=3.8"
 license = { text = "Proprietary" }

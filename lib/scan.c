@@ -16,9 +16,52 @@
 #include <string.h>
 #include <time.h>
 #include <sys/select.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 #define UDP_DATA_PORT   7778u
 #define UDP_RECV_TMO_MS  200   /* periodic wakeup to check thread_exit */
+
+/* ── Wake pipe ──────────────────────────────────────────────────────────── */
+
+/* Wake the receive thread so it re-checks thread_exit without waiting for the
+   receive timeout.  Safe to call when no pipe exists. */
+static void scan_wake(ScanCtx_t *ctx)
+{
+    if (ctx->wake_fd[1] >= 0)
+        (void)write(ctx->wake_fd[1], "w", 1);
+}
+
+static void scan_wake_drain(ScanCtx_t *ctx)
+{
+    uint8_t scratch[16];
+    while (ctx->wake_fd[0] >= 0 &&
+           read(ctx->wake_fd[0], scratch, sizeof(scratch)) > 0)
+        ;   /* read end is non-blocking; drain whatever is queued */
+}
+
+static int scan_wake_open(ScanCtx_t *ctx)
+{
+    if (pipe(ctx->wake_fd) != 0) {
+        ctx->wake_fd[0] = -1;
+        ctx->wake_fd[1] = -1;
+        return -1;
+    }
+    /* Non-blocking read end so draining never stalls the thread. */
+    fcntl(ctx->wake_fd[0], F_SETFL,
+          fcntl(ctx->wake_fd[0], F_GETFL, 0) | O_NONBLOCK);
+    return 0;
+}
+
+static void scan_wake_close(ScanCtx_t *ctx)
+{
+    for (int i = 0; i < 2; i++) {
+        if (ctx->wake_fd[i] >= 0) {
+            close(ctx->wake_fd[i]);
+            ctx->wake_fd[i] = -1;
+        }
+    }
+}
 
 /* ── Conversion ─────────────────────────────────────────────────────────── */
 
@@ -149,7 +192,12 @@ static void *scan_thread(void *arg)
     double  sample_set[SCAN_N_CH];
 
     while (!ctx->thread_exit) {
-        int n = udp_recv_frame(ctx->udp_fd, dgram, sizeof(dgram), UDP_RECV_TMO_MS);
+        int n = udp_recv_frame_wake(ctx->udp_fd, ctx->wake_fd[0],
+                                    dgram, sizeof(dgram), UDP_RECV_TMO_MS);
+        if (n == UDP_RECV_WOKEN) {
+            scan_wake_drain(ctx);
+            continue;   /* woken by scan_stop_send — re-check thread_exit */
+        }
         if (n < 0)
             break;
         if (n == 0)
@@ -162,6 +210,22 @@ static void *scan_thread(void *arg)
         const uint8_t *hdr = dgram + 2;   /* skip 2-byte counter */
         if (!proto_is_scan_frame(hdr))
             continue;
+
+        /* Sequence counter: consecutive frames differ by exactly 1 (mod 65536).
+         * The device does not advance it when it skips a chunk, so a gap here is
+         * a frame that was sent and never arrived. */
+        uint16_t cnt = (uint16_t)dgram[0] | ((uint16_t)dgram[1] << 8);
+        if (ctx->have_cnt) {
+            uint16_t gap = (uint16_t)(cnt - ctx->last_cnt - 1u);
+            if (gap) {
+                pthread_mutex_lock(&ctx->mtx);
+                ctx->lost_frames += gap;
+                ctx->status |= STATUS_DATA_LOST;
+                pthread_mutex_unlock(&ctx->mtx);
+            }
+        }
+        ctx->have_cnt = 1;
+        ctx->last_cnt = cnt;
 
         uint16_t n_samples   = (uint16_t)hdr[1] | ((uint16_t)hdr[2] << 8);
         uint8_t  srv_status  = hdr[3];
@@ -211,7 +275,9 @@ static void *scan_thread(void *arg)
 void scan_ctx_init(ScanCtx_t *ctx)
 {
     memset(ctx, 0, sizeof(*ctx));
-    ctx->udp_fd = -1;
+    ctx->udp_fd     = -1;
+    ctx->wake_fd[0] = -1;
+    ctx->wake_fd[1] = -1;
     pthread_mutex_init(&ctx->mtx, NULL);
     pthread_cond_init(&ctx->cond, NULL);
 }
@@ -230,6 +296,9 @@ int scan_start(ScanCtx_t *ctx, int sockfd,
     ctx->avail    = 0;
     ctx->status   = STATUS_RUNNING;
     ctx->active   = 1;
+    ctx->have_cnt = 0;
+    ctx->last_cnt = 0;
+    ctx->lost_frames = 0;
 
     /* Count active channels */
     ctx->ch_count = 0;
@@ -260,11 +329,13 @@ int scan_start(ScanCtx_t *ctx, int sockfd,
             ctx->ring = NULL;
             return RESULT_RESOURCE_UNAVAIL;
         }
+        (void)scan_wake_open(ctx);   /* optional: thread exits on timeout without it */
         thread_fn = scan_thread;
     }
 
     ctx->thread_exit = 0;
     if (pthread_create(&ctx->tid, NULL, thread_fn, ctx) != 0) {
+        scan_wake_close(ctx);
         if (ctx->udp_fd >= 0) {
             tcp_close(ctx->udp_fd);
             ctx->udp_fd = -1;
@@ -283,18 +354,15 @@ int scan_stop_send(ScanCtx_t *ctx)
     if (tcp_send_all(ctx->sockfd, req, (size_t)len) != 0)
         return RESULT_COMMS_FAILURE;
 
-    if (ctx->options & OPTS_TCP_DATA) {
-        /* TCP data mode: scan_thread_tcp drains the CMD_SCAN_STOP response
-         * from the socket and exits on its own.  thread_exit is a safety net
-         * in case the server becomes unresponsive. */
-    } else {
-        /* UDP data mode: consume the CMD_SCAN_STOP TCP response (3 bytes) so
-         * it does not interfere with subsequent do_cmd() calls. */
+    if (!(ctx->options & OPTS_TCP_DATA)) {
+        /* UDP mode: consume the CMD_SCAN_STOP response here.
+         * (TCP mode: scan_thread_tcp consumes it and exits on its own.) */
         uint8_t hdr[3];
         tcp_recv_all(ctx->sockfd, hdr, sizeof(hdr), 3000);
     }
 
     ctx->thread_exit = 1;
+    scan_wake(ctx);
     return RESULT_SUCCESS;
 }
 
@@ -307,8 +375,25 @@ int scan_join(ScanCtx_t *ctx)
     return RESULT_SUCCESS;
 }
 
+int scan_is_running(ScanCtx_t *ctx)
+{
+    uint16_t st;
+
+    if (!ctx->active || !ctx->tid)
+        return 0;
+    if (ctx->thread_exit)
+        return 0;       /* stop requested; the thread has just not woken yet */
+
+    pthread_mutex_lock(&ctx->mtx);
+    st = ctx->status;
+    pthread_mutex_unlock(&ctx->mtx);
+
+    return (st & STATUS_RUNNING) ? 1 : 0;
+}
+
 void scan_cleanup(ScanCtx_t *ctx)
 {
+    scan_wake_close(ctx);
     if (ctx->udp_fd >= 0) {
         tcp_close(ctx->udp_fd);
         ctx->udp_fd = -1;
@@ -387,6 +472,14 @@ int scan_get_status(ScanCtx_t *ctx, uint16_t *status_out, uint32_t *avail_out)
     *avail_out  = ctx->avail;
     pthread_mutex_unlock(&ctx->mtx);
     return RESULT_SUCCESS;
+}
+
+uint32_t scan_lost(ScanCtx_t *ctx)
+{
+    pthread_mutex_lock(&ctx->mtx);
+    uint32_t n = ctx->lost_frames;
+    pthread_mutex_unlock(&ctx->mtx);
+    return n;
 }
 
 int scan_ch_count(ScanCtx_t *ctx)

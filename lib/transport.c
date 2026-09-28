@@ -133,7 +133,7 @@ int udp_open_recv(uint16_t port)
     int flag = 1;
     setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag));
 
-    int rcvbuf = 32 * 1024 * 1024;   /* 32 MB — 512kSPS 버퍼 오버런 방지 */
+    int rcvbuf = 32 * 1024 * 1024;   /* 32 MB; avoids overrun at 512 kS/s */
     setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &rcvbuf, sizeof(rcvbuf));
 
     struct sockaddr_in addr;
@@ -151,23 +151,41 @@ int udp_open_recv(uint16_t port)
 
 int udp_recv_frame(int fd, void *buf, size_t max_len, int timeout_ms)
 {
+    return udp_recv_frame_wake(fd, -1, buf, max_len, timeout_ms);
+}
+
+int udp_recv_frame_wake(int fd, int wake_fd, void *buf, size_t max_len,
+                        int timeout_ms)
+{
     fd_set rfds;
+    int    maxfd = fd;
+
     FD_ZERO(&rfds);
     FD_SET(fd, &rfds);
+    if (wake_fd >= 0) {
+        FD_SET(wake_fd, &rfds);
+        if (wake_fd > maxfd)
+            maxfd = wake_fd;
+    }
+
     struct timeval tv = {
         .tv_sec  = timeout_ms / 1000,
         .tv_usec = (timeout_ms % 1000) * 1000
     };
-    int rc = select(fd + 1, &rfds, NULL, NULL, &tv);
+    int rc = select(maxfd + 1, &rfds, NULL, NULL, &tv);
     if (rc < 0)
         return -1;
     if (rc == 0)
         return 0;
+
+    if (wake_fd >= 0 && FD_ISSET(wake_fd, &rfds))
+        return UDP_RECV_WOKEN;
+
     ssize_t n = recv(fd, buf, max_len, 0);
     return (n < 0) ? -1 : (int)n;
 }
 
-/* 연결 성공까지 interval_ms 간격으로 재시도. timeout_ms 초과 시 -1 반환. */
+/* Retry every interval_ms until connected.  Returns -1 after timeout_ms. */
 int tcp_connect_retry(const char *ip, uint16_t port, int timeout_ms, int interval_ms)
 {
     int elapsed = 0;

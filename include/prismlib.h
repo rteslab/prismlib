@@ -11,6 +11,26 @@
 extern "C" {
 #endif
 
+/* ── Version ───────────────────────────────────────────────────────────── */
+
+/* The library version.  Edit these three numbers only; the string below, the
+ * Python package version (python/setup.py) and the release tools all derive
+ * from them. */
+#define PRISMLIB_VERSION_MAJOR 1
+#define PRISMLIB_VERSION_MINOR 1
+#define PRISMLIB_VERSION_PATCH 1
+
+#define PRISMLIB_STR_(x) #x
+#define PRISMLIB_STR(x)  PRISMLIB_STR_(x)
+/* "MAJOR.MINOR.PATCH" */
+#define PRISMLIB_VERSION                                                    \
+    PRISMLIB_STR(PRISMLIB_VERSION_MAJOR) "."                                \
+    PRISMLIB_STR(PRISMLIB_VERSION_MINOR) "."                                \
+    PRISMLIB_STR(PRISMLIB_VERSION_PATCH)
+
+/* Version of the loaded library, as "MAJOR.MINOR.PATCH". */
+const char *prismlib_version(void);
+
 /* ── GPIO LED identifiers (Raspberry Pi CM4) ───────────────────────────── */
 #define PRISM_LED_PWR   21   /* ACT LED  (GPIO 21) */
 #define PRISM_LED_ERR   20   /* GPIO 20 */
@@ -36,6 +56,7 @@ extern "C" {
 /* ── Scan status flags ─────────────────────────────────────────────────── */
 #define STATUS_HW_OVERRUN     0x0001u
 #define STATUS_BUFFER_OVERRUN 0x0002u
+#define STATUS_DATA_LOST      0x0004u  /* one or more UDP data frames never arrived (sticky) */
 #define STATUS_RUNNING        0x0008u
 
 /* ── Hardware info structure ───────────────────────────────────────────── */
@@ -70,7 +91,14 @@ int prismlib_cal_write(prismlib_t *dev, uint8_t channel, double slope, double of
 /* ── IEPE ──────────────────────────────────────────────────────────────── */
 int prismlib_iepe_read(prismlib_t *dev, uint8_t channel, uint8_t *config);
 int prismlib_iepe_write(prismlib_t *dev, uint8_t channel, uint8_t config);
-/* fault_mask: bit0=ch1, bit1=ch2, bit2=ch3, bit3=ch4 (1=fault) */
+/*
+ * Per-channel IEPE fault flags: bit0=ch1 ... bit3=ch4 (1 = fault).
+ * A fault covers both an open line (no sensor, broken cable) and a short.
+ *
+ * Channels with IEPE off always report 0.  Enable the channel with
+ * prismlib_iepe_write() and allow the current to settle (2 s or more)
+ * before calling this.
+ */
 int prismlib_iepe_diag(prismlib_t *dev, uint8_t *fault_mask);
 
 /* ── Sensor sensitivity ────────────────────────────────────────────────── */
@@ -78,15 +106,35 @@ int prismlib_sens_read(prismlib_t *dev, uint8_t channel, double *value);
 int prismlib_sens_write(prismlib_t *dev, uint8_t channel, double value);
 
 /* ── Sampling rate ─────────────────────────────────────────────────────── */
+/*
+ * Per-channel sample rate.  Value 2 is not supported and returns
+ * RESULT_BAD_PARAMETER.
+ */
 typedef enum {
-    PRISM_SR_64K  = 0,   /*  64 kS/s */
-    PRISM_SR_128K = 1,   /* 128 kS/s */
-    PRISM_SR_170K = 2,   /* 170 kS/s */
-    PRISM_SR_256K = 3,   /* 256 kS/s */
-    PRISM_SR_512K = 4,   /* 512 kS/s */
+    PRISM_SR_64K  = 0,   /*  64,000 S/s */
+    PRISM_SR_128K = 1,   /* 128,000 S/s */
+    /* 2 = unused */
+    PRISM_SR_256K = 3,   /* 256,000 S/s */
+    PRISM_SR_512K = 4,   /* 512,000 S/s (max) */
+    PRISM_SR_32K  = 5,   /*  32,000 S/s */
+    PRISM_SR_16K  = 6,   /*  16,000 S/s */
+    PRISM_SR_8K   = 7,   /*   8,000 S/s */
+    PRISM_SR_4K   = 8,   /*   4,000 S/s */
+    PRISM_SR_2K   = 9,   /*   2,000 S/s */
+    PRISM_SR_1K   = 10,  /*   1,000 S/s */
+    PRISM_SR_500  = 11,  /*     500 S/s (min) */
+
+    PRISM_SR_COUNT = 12, /* table size; 11 rates are valid */
 } PrismSampleRate_e;
 
+/* Enum to data rate in S/s.  Returns 0 for an unsupported value. */
+double prismlib_sampleRate_hz(PrismSampleRate_e sample_rate);
+
+/* Short display name ("64K", "500", ...).  Returns "?" if unsupported. */
+const char *prismlib_sampleRate_name(PrismSampleRate_e sample_rate);
+
 int prismlib_sampleRate_read(prismlib_t *dev, PrismSampleRate_e *sample_rate);
+
 int prismlib_sampleRate_write(prismlib_t *dev, PrismSampleRate_e sample_rate);
 
 /* ── Analog input scan ─────────────────────────────────────────────────── */
@@ -102,6 +150,11 @@ int prismlib_scan_status(prismlib_t *dev, uint16_t *status,
 int prismlib_scan_cleanup(prismlib_t *dev);
 int prismlib_scan_ch_count(prismlib_t *dev);
 int prismlib_scan_buf_size(prismlib_t *dev, uint32_t *buffer_size_samples);
+/* Number of scan data frames lost on the way from the device since scan_start().
+ * Each frame carries a 16-bit sequence counter; a gap in the counter is a lost
+ * frame (samples that will never be delivered).  STATUS_DATA_LOST is set in the
+ * scan status at the same time.  Zero means the stream is complete. */
+int prismlib_scan_lost(prismlib_t *dev, uint32_t *lost_frames);
 
 /* ── LED control (Raspberry Pi GPIO — only meaningful when running on-device)
  *   Requires libgpiod. No-op stubs are used if built without HAVE_GPIOD.    */

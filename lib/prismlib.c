@@ -41,6 +41,9 @@ struct prismlib_s {
 
 /* ── Helpers ────────────────────────────────────────────────────────────── */
 
+/* Release a finished scan; defined in the scan section below. */
+static int scan_release(struct prismlib_s *dev);
+
 /* Send a request and receive the full response.
  * payload_out must be at least 256 bytes; actual length in *plen_out. */
 static int do_cmd(struct prismlib_s *dev, uint8_t cmd,
@@ -80,14 +83,24 @@ static void reset_cal_sens(struct prismlib_s *dev)
     dev->sample_rate = 64000.0;
 }
 
-/* 샘플링 속도 기반 기본 링 버퍼 크기 (~2초 커버리지) */
+/* Default ring buffer size, scaled with the sample rate (~2 s of data). */
+#define BUF_CAP_SECONDS   2.0
+#define BUF_CAP_MIN       4096u        /* floor for low rates */
+#define BUF_CAP_MAX    1024000u        /* ~2.0 s at 512 kS/s */
+
 static uint32_t default_buf_cap(double sample_rate)
 {
-    if (sample_rate <=   8000.0)  return    16000u;  /* ~2.0초 @   8kS/s */
-    if (sample_rate <=  64000.0)  return   128000u;  /* ~2.0초 @  64kS/s */
-    if (sample_rate <= 128000.0)  return   256000u;  /* ~2.0초 @ 128kS/s */
-    if (sample_rate <= 256000.0)  return   512000u;  /* ~2.0초 @ 256kS/s */
-    return                                1024000u;  /* ~2.0초 @ 512kS/s */
+    double cap = sample_rate * BUF_CAP_SECONDS;
+    if (cap < (double)BUF_CAP_MIN) return BUF_CAP_MIN;
+    if (cap > (double)BUF_CAP_MAX) return BUF_CAP_MAX;
+    return (uint32_t)cap;
+}
+
+/* ── Version ────────────────────────────────────────────────────────────── */
+
+const char *prismlib_version(void)
+{
+    return PRISMLIB_VERSION;
 }
 
 /* ── Device management ──────────────────────────────────────────────────── */
@@ -132,7 +145,7 @@ prismlib_t *prismlib_open(const char *ip, uint16_t port)
 
     led_ctx_open(&dev->led);   /* GPIO request: PWR=1 ERR=0 ALARM=0 */
 
-    /* Fetch serial number — used as cal file key */
+    /* Fetch serial number */
     {
         uint8_t sres[64]; uint8_t splen = 0;
         if (do_cmd(dev, (uint8_t)CMD_SERIAL, NULL, 0, sres, &splen) == RESULT_SUCCESS
@@ -170,10 +183,7 @@ int prismlib_close(prismlib_t *dev)
 
     if (dev->scan.active) {
         scan_stop_send(&dev->scan);
-        scan_join(&dev->scan);
-        uint8_t res[4];
-        do_cmd(dev, (uint8_t)CMD_SCAN_CLEANUP, NULL, 0, res, NULL); /* 서버: STATE_SCAN_STOPPING → STATE_IDLE */
-        scan_cleanup(&dev->scan);
+        scan_release(dev);      /* join, device cleanup, free ring and socket */
     }
 
     uint8_t res[8];
@@ -308,11 +318,7 @@ int prismlib_iepe_diag(prismlib_t *dev, uint8_t *fault_mask)
     int rc = do_cmd(dev, (uint8_t)CMD_IEPE_DIAG, NULL, 0, res, &plen);
     if (rc != RESULT_SUCCESS)
         return rc;
-    /* 하드웨어 배선상 ERR 핀 순서가 채널 번호와 반대(bit0=ch4, bit3=ch1)이므로
-     * bit 순서를 반전하여 bit0=ch1, bit3=ch4 로 정규화한다. */
-    uint8_t m = res[0];
-    *fault_mask = (uint8_t)(((m & 0x01u) << 3) | ((m & 0x02u) << 1) |
-                            ((m & 0x04u) >> 1) | ((m & 0x08u) >> 3));
+    *fault_mask = res[0];
     return RESULT_SUCCESS;
 }
 
@@ -338,7 +344,51 @@ int prismlib_sens_write(prismlib_t *dev, uint8_t channel, double value)
 
 /* ── Sampling rate ──────────────────────────────────────────────────────── */
 
-static const double sr_hz[5] = { 64000.0, 128000.0, 170000.0, 256000.0, 512000.0 };
+/* Data rate in S/s, indexed by PrismSampleRate_e.  All rates are exact integers. */
+static const double sr_hz[PRISM_SR_COUNT] = {
+    [PRISM_SR_64K]  =  64000.0,
+    [PRISM_SR_128K] = 128000.0,
+    [2]             =      0.0,   /* unused */
+    [PRISM_SR_256K] = 256000.0,
+    [PRISM_SR_512K] = 512000.0,
+    [PRISM_SR_32K]  =  32000.0,
+    [PRISM_SR_16K]  =  16000.0,
+    [PRISM_SR_8K]   =   8000.0,
+    [PRISM_SR_4K]   =   4000.0,
+    [PRISM_SR_2K]   =   2000.0,
+    [PRISM_SR_1K]   =   1000.0,
+    [PRISM_SR_500]  =    500.0,
+};
+
+static int sr_valid(PrismSampleRate_e sr)
+{
+    return ((int)sr >= 0 && (int)sr < PRISM_SR_COUNT && sr_hz[sr] > 0.0);
+}
+
+double prismlib_sampleRate_hz(PrismSampleRate_e sample_rate)
+{
+    return sr_valid(sample_rate) ? sr_hz[sample_rate] : 0.0;
+}
+
+const char *prismlib_sampleRate_name(PrismSampleRate_e sample_rate)
+{
+    static const char *names[PRISM_SR_COUNT] = {
+        [PRISM_SR_64K]  = "64K",
+        [PRISM_SR_128K] = "128K",
+        [2]             = NULL,      /* unused */
+        [PRISM_SR_256K] = "256K",
+        [PRISM_SR_512K] = "512K",
+        [PRISM_SR_32K]  = "32K",
+        [PRISM_SR_16K]  = "16K",
+        [PRISM_SR_8K]   = "8K",
+        [PRISM_SR_4K]   = "4K",
+        [PRISM_SR_2K]   = "2K",
+        [PRISM_SR_1K]   = "1K",
+        [PRISM_SR_500]  = "500",
+    };
+    return sr_valid(sample_rate) ? names[sample_rate] : "?";
+}
+
 
 int prismlib_sampleRate_read(prismlib_t *dev, PrismSampleRate_e *sample_rate)
 {
@@ -349,7 +399,7 @@ int prismlib_sampleRate_read(prismlib_t *dev, PrismSampleRate_e *sample_rate)
     int rc = do_cmd(dev, (uint8_t)CMD_SAMPLERATE_READ, NULL, 0, res, &plen);
     if (rc != RESULT_SUCCESS)
         return rc;
-    if (res[0] > PRISM_SR_512K)
+    if (!sr_valid((PrismSampleRate_e)res[0]))
         return RESULT_BAD_PARAMETER;
     *sample_rate = (PrismSampleRate_e)res[0];
     return RESULT_SUCCESS;
@@ -357,7 +407,7 @@ int prismlib_sampleRate_read(prismlib_t *dev, PrismSampleRate_e *sample_rate)
 
 int prismlib_sampleRate_write(prismlib_t *dev, PrismSampleRate_e sample_rate)
 {
-    if (!dev || sample_rate > PRISM_SR_512K)
+    if (!dev || !sr_valid(sample_rate))
         return RESULT_BAD_PARAMETER;
     uint8_t req[1] = { (uint8_t)sample_rate };
     uint8_t res[4];
@@ -369,13 +419,31 @@ int prismlib_sampleRate_write(prismlib_t *dev, PrismSampleRate_e sample_rate)
 
 /* ── Scan ───────────────────────────────────────────────────────────────── */
 
+/* Release a finished scan: join the receive thread, clean up on the device,
+ * free the ring buffer and close the UDP socket. */
+static int scan_release(prismlib_t *dev)
+{
+    scan_join(&dev->scan);
+
+    uint8_t res[4];
+    int rc = do_cmd(dev, (uint8_t)CMD_SCAN_CLEANUP, NULL, 0, res, NULL);
+
+    scan_cleanup(&dev->scan);
+    return rc;
+}
+
 int prismlib_scan_start(prismlib_t *dev, uint8_t channel_mask,
                       uint32_t samples_per_channel, uint32_t options)
 {
     if (!dev || !channel_mask)
         return RESULT_BAD_PARAMETER;
-    if (dev->scan.active)
-        return RESULT_BUSY;
+
+    /* A finished scan left behind is reclaimed here so a new one can start. */
+    if (dev->scan.active) {
+        if (scan_is_running(&dev->scan))
+            return RESULT_BUSY;     /* still running; call scan_stop() first */
+        scan_release(dev);
+    }
 
     uint8_t req[9];
     req[0] = channel_mask;
@@ -387,7 +455,7 @@ int prismlib_scan_start(prismlib_t *dev, uint8_t channel_mask,
     if (rc != RESULT_SUCCESS)
         return rc;
 
-    /* 샘플링 속도 기반 기본 버퍼 크기 (~2초 커버리지), spc가 더 크면 spc 사용 */
+    /* Default size from the sample rate, or samples_per_channel if larger. */
     uint32_t def_cap = default_buf_cap(dev->sample_rate);
     uint32_t buf_cap = samples_per_channel > def_cap ? samples_per_channel : def_cap;
 
@@ -397,13 +465,17 @@ int prismlib_scan_start(prismlib_t *dev, uint8_t channel_mask,
     return rc;
 }
 
+/* Returns once the scan has stopped and the receive thread has exited. */
 int prismlib_scan_stop(prismlib_t *dev)
 {
     if (!dev)
         return RESULT_BAD_PARAMETER;
     if (!dev->scan.active)
         return RESULT_RESOURCE_UNAVAIL;
-    return scan_stop_send(&dev->scan);
+
+    int rc = scan_stop_send(&dev->scan);
+    scan_join(&dev->scan);
+    return rc;
 }
 
 int prismlib_scan_read(prismlib_t *dev, uint16_t *status,
@@ -427,6 +499,16 @@ int prismlib_scan_status(prismlib_t *dev, uint16_t *status,
     return scan_get_status(&dev->scan, status, samples_per_channel);
 }
 
+int prismlib_scan_lost(prismlib_t *dev, uint32_t *lost_frames)
+{
+    if (!dev || !lost_frames)
+        return RESULT_BAD_PARAMETER;
+    if (!dev->scan.active)
+        return RESULT_RESOURCE_UNAVAIL;
+    *lost_frames = scan_lost(&dev->scan);
+    return RESULT_SUCCESS;
+}
+
 int prismlib_scan_cleanup(prismlib_t *dev)
 {
     if (!dev)
@@ -434,19 +516,11 @@ int prismlib_scan_cleanup(prismlib_t *dev)
     if (!dev->scan.active)
         return RESULT_RESOURCE_UNAVAIL;
 
-    uint16_t status;
-    uint32_t avail;
-    scan_get_status(&dev->scan, &status, &avail);
-    if (status & STATUS_RUNNING)
-        return RESULT_BUSY;  /* prismlib_scan_stop() must be called first */
+    /* A running scan must be stopped first. */
+    if (scan_is_running(&dev->scan))
+        return RESULT_BUSY;
 
-    scan_join(&dev->scan);
-
-    uint8_t res[4];
-    int rc = do_cmd(dev, (uint8_t)CMD_SCAN_CLEANUP, NULL, 0, res, NULL);
-
-    scan_cleanup(&dev->scan);
-    return rc;
+    return scan_release(dev);
 }
 
 int prismlib_scan_ch_count(prismlib_t *dev)

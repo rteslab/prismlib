@@ -32,13 +32,23 @@ typedef struct {
     pthread_mutex_t mtx;
     pthread_cond_t  cond;
 
-    /* status flags (STATUS_HW_OVERRUN | STATUS_BUFFER_OVERRUN | STATUS_RUNNING) */
+    /* status flags (STATUS_HW_OVERRUN | STATUS_BUFFER_OVERRUN | STATUS_DATA_LOST | STATUS_RUNNING) */
     uint16_t status;
+
+    /* UDP frame sequence tracking: the device numbers every data frame (16-bit,
+     * reset at scan start).  A gap means frames were lost in transit. */
+    uint16_t last_cnt;
+    int      have_cnt;
+    uint32_t lost_frames;
 
     /* lifecycle */
     int      active;        /* 1 after scan_start, 0 after scan_cleanup */
     pthread_t tid;
     int       thread_exit;  /* set to 1 to ask thread to exit */
+
+    /* Self-pipe that wakes the receive thread when thread_exit is set.
+     * [0] = read end (non-blocking), [1] = write end.  -1 when unused. */
+    int      wake_fd[2];
 } ScanCtx_t;
 
 void scan_ctx_init(ScanCtx_t *ctx);
@@ -56,6 +66,10 @@ int  scan_stop_send(ScanCtx_t *ctx);
  * Must be called before scan_cleanup(). */
 int  scan_join(ScanCtx_t *ctx);
 
+/* Whether the receive thread is still running.  Returns 0 once a stop has
+ * been requested, a finite scan has ended, or no scan was started. */
+int  scan_is_running(ScanCtx_t *ctx);
+
 /* Free ring buffer and reset context. Call after scan_join(). */
 void scan_cleanup(ScanCtx_t *ctx);
 
@@ -67,5 +81,6 @@ int  scan_read(ScanCtx_t *ctx,
 int      scan_get_status(ScanCtx_t *ctx, uint16_t *status_out, uint32_t *avail_out);
 int      scan_ch_count(ScanCtx_t *ctx);
 uint32_t scan_buf_size(ScanCtx_t *ctx);
+uint32_t scan_lost(ScanCtx_t *ctx);
 
 #endif /* SCAN_H */
